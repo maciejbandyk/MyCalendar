@@ -6,9 +6,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyCalendar_WPF_App"
         mc:Ignorable="d"
-        Title="MyCalendar" Height="700" Width="980"
-        MinWidth="840">
+        Title="MyCalendar" Height="700" Width="980" MinWidth="840">
+    
     <Grid>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition Width="0"></ColumnDefinition>
@@ -84,7 +85,7 @@
         <Button x:Name="ButtonCalendar36" Content="Button" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Stretch" Height="auto" />
         <Button x:Name="ButtonCalendar37" Content="Button" Grid.Column="3" Grid.Row="7" HorizontalAlignment="Stretch" Height="auto" />
         <Button x:Name="ButtonCalendar38" Content="Button" Grid.Column="4" Grid.Row="7" HorizontalAlignment="Stretch" Height="auto" />
-        <Button x:Name="ButtonCalendar39" Content="Button" Grid.Column="5" Grid.Row="7" HorizontalAlignment="Stretch" Height="auto" />
+        <Button x:Name="ButtonCalendar39" Content="Button" Grid.Column="5" Grid.Row="7" HorizontalAlignment="Stretch" Height="auto" Cursor="Hand" />
         <Button x:Name="ButtonCalendar40" Content="Button" Grid.Column="6" Grid.Row="7" HorizontalAlignment="Stretch" Height="auto" />
         <Button x:Name="ButtonCalendar41" Content="Button" Grid.Column="7" Grid.Row="7" HorizontalAlignment="Stretch" Height="auto" />
         <Button x:Name="ButtonCalendar42" Content="Button" Grid.Column="8" Grid.Row="7" HorizontalAlignment="Stretch" Height="auto" />

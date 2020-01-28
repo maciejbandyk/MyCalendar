@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<docs>
+  <members name ="Note">
+    <Note>
+      <summary>
+        Jedno zdanie, żebyś wiedział, że tu opis główny
+      </summary>
+    </Note>
+    
+  </members>
+  <members name="CustomMail"></members>
+  <members name="MyEvent"></members>
+  <members name="SettingsSave"></members>
+  <members name="Encyptor"></members>
+</docs> 

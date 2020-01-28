@@ -6,6 +6,7 @@ using System.Data.SQLite;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -19,18 +20,19 @@ namespace CustomCalendar
 {
 
     //define user notes (base)
+    /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="Note"]/Note/*'/>
     public class Note
     {
         //required variables
-        internal string _id;
-        internal string _name;
-        internal string _date;
-        internal string _title;
-        internal string _description;
-        internal bool _reminder;
+        protected string _id;
+        protected string _name;
+        protected string _date;
+        protected string _title;
+        protected string _description;
+        protected bool _reminder;
 
-        internal string _database = @"URI=file:"+Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\CalendarDB.db";
-        internal static string _sdatabase = @"URI=file:" + Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\CalendarDB.db";
+        protected string _database = @"URI=file:"+Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\CalendarDB.db";
+        protected static string _sdatabase = @"URI=file:" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\CalendarDB.db";
 
 
 
@@ -84,8 +86,34 @@ namespace CustomCalendar
                 return false;
             }
         }
+        //check for row
+        public static bool CheckForRow(string type, string name)
+        {
+            int exist = 0;
+            //if table exist
+            if (CheckForTable(type) == true)
+            {
+                using var con = new SQLiteConnection(_sdatabase);
+                con.Open();
+                using var cmd = new SQLiteCommand(con);
+
+                string command = $"SELECT COUNT(*) FROM {type} WHERE Name LIKE '{name}%';";
+
+                cmd.CommandText = @command;
+                exist = (int)Convert.ToInt32(cmd.ExecuteScalar());
+            }
+
+            if (exist > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         //create table if exists
-        internal void CreateTable()
+        protected void CreateTable()
         {
             if(CheckForTable("Notes") == false)
             {
@@ -142,13 +170,13 @@ namespace CustomCalendar
             con.Open();
             using var cmd = new SQLiteCommand(con);
 
-            cmd.CommandText = $"DELETE FROM Notes WHERE Name = \"{name}\" LIMIT 1;";
+            cmd.CommandText = $"DELETE FROM Notes WHERE Name = \"{name}\";";
             cmd.ExecuteNonQuery();
         }
         //get static list of elements with name
         public static List<string> GetSearch(string value) => SearchDataBase("Notes", value);
 
-        internal static List<string> SearchDataBase(string type, string nameStart)
+        protected static List<string> SearchDataBase(string type, string nameStart)
         {
             List<string> tempList = new List<string>();
             
@@ -182,7 +210,7 @@ namespace CustomCalendar
             }
         }
 
-        internal static string LoadConnectionString(string id="Default")
+        protected static string LoadConnectionString(string id="Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
         }
@@ -239,7 +267,7 @@ namespace CustomCalendar
         }
 
         //create table if no exists
-        internal new void CreateTable()
+        protected new void CreateTable()
         {
             if (CheckForTable("Mails") == false)
             {
@@ -377,7 +405,7 @@ namespace CustomCalendar
             con.Open();
             using var cmd = new SQLiteCommand(con);
 
-            cmd.CommandText = $"DELETE FROM Mails WHERE Name = \"{_name}\" LIMIT 1;";
+            cmd.CommandText = $"DELETE FROM Mails WHERE Name = \"{_name}\";";
             cmd.ExecuteNonQuery();
         }
 
@@ -387,7 +415,7 @@ namespace CustomCalendar
             con.Open();
             using var cmd = new SQLiteCommand(con);
 
-            cmd.CommandText = $"DELETE FROM Mails WHERE Name = \"{name}\" LIMIT 1;";
+            cmd.CommandText = $"DELETE FROM Mails WHERE Name = \"{name}\";";
             cmd.ExecuteNonQuery();
         }
 
@@ -450,7 +478,7 @@ namespace CustomCalendar
             };
 
         //create table if no exists
-        internal new void CreateTable()
+        protected new void CreateTable()
         {
             if (CheckForTable("Events") == false)
             {
@@ -582,7 +610,7 @@ namespace CustomCalendar
             con.Open();
             using var cmd = new SQLiteCommand(con);
 
-            cmd.CommandText = $"DELETE FROM Events WHERE Name = \"{_name}\" LIMIT 1;";
+            cmd.CommandText = $"DELETE FROM Events WHERE Name = \"{_name}\";";
             cmd.ExecuteNonQuery();
             con.Close();
         }
@@ -596,7 +624,7 @@ namespace CustomCalendar
             con.Open();
             using var cmd = new SQLiteCommand(con);
 
-            cmd.CommandText = $"DELETE FROM Events WHERE Name = \"{name}\" LIMIT 1;";
+            cmd.CommandText = $"DELETE FROM Events WHERE Name = \"{name}\";";
             cmd.ExecuteNonQuery();
             con.Close();
         }
@@ -615,7 +643,8 @@ namespace CustomCalendar
         {
             Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             configuration.AppSettings.Settings[key].Value = value;
-            configuration.Save(ConfigurationSaveMode.Full, true);
+            configuration.Save();
+
             ConfigurationManager.RefreshSection("appSettings");
         }
     }

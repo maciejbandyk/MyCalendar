@@ -349,14 +349,28 @@ namespace MyCalendar_WPF_App
             _buttons[_b - 1].Content = Convert.ToString(c-1);
             _buttons[_b - 1].Background = Brushes.White;
             _buttons[_b - 1].Foreground = Brushes.Black;
-            for(int i = 1; i < days; i++)
+            if (Note.CheckForRow("Notes", mWindow.YearCombobox.Text + mWindow.MonthCombobox.SelectedItem.ToString() + (c - 1)))
+                _buttons[_b - 1].Background = Brushes.Blue;
+            if (Note.CheckForRow("Mails", mWindow.YearCombobox.Text + mWindow.MonthCombobox.SelectedItem.ToString() + (c - 1)))
+                _buttons[_b - 1].Background = Brushes.Blue;
+            if (Note.CheckForRow("Events", mWindow.YearCombobox.Text + mWindow.MonthCombobox.SelectedItem.ToString() + (c - 1)))
+                _buttons[_b - 1].Background = Brushes.Blue;
+
+            for (int i = 1; i < days; i++)
             {
                 _buttons[_b].Content = Convert.ToString(c);
                 _buttons[_b].Background = Brushes.White;
                 _buttons[_b].Foreground = Brushes.Black;
+                if (Note.CheckForRow("Notes", mWindow.YearCombobox.Text + mWindow.MonthCombobox.SelectedItem.ToString() + c))
+                    _buttons[_b].Background = Brushes.Blue;
+                if (Note.CheckForRow("Mails", mWindow.YearCombobox.Text + mWindow.MonthCombobox.SelectedItem.ToString() + c))
+                    _buttons[_b].Background = Brushes.Blue;
+                if (Note.CheckForRow("Events", mWindow.YearCombobox.Text + mWindow.MonthCombobox.SelectedItem.ToString() + c))
+                    _buttons[_b].Background = Brushes.Blue;
                 _b++;
                 c++;
             }
+           // win.SaveButton.Click += (sender, e) => SaveNoteButton_Click(win.StartDayYearTextBox + win.StartDayMonthBox.SelectedItem.ToString() + win.StartDateDayBox.SelectedItem.ToString()
         }
         //color sundays in red
         private void RedDays()

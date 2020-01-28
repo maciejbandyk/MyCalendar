@@ -5,6 +5,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>MyCalendar_WPF_App</RootNamespace>
     <UseWPF>true</UseWPF>
+    <PackageIcon></PackageIcon>
+    <PackageIconUrl />
+    <ApplicationIcon>calendarIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
