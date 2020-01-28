@@ -550,7 +550,7 @@ namespace CustomCalendar
                         RemindTime = 10;
                 }
 
-                char[] sDate = _startDate.ToCharArray();
+                char[] sDate = _startDate.ToCharArray();  //false data, redefine string with data to google format
                 char[] eDate = _endDate.ToCharArray();
 
                 //create Event to send for calendar API
@@ -703,7 +703,7 @@ namespace CustomCalendar
                     {
                         using (StreamReader streamReader = new StreamReader(cryptoStream)) ///reads stream
                         {
-                            return streamReader.ReadToEnd();
+                            return streamReader.ReadToEnd(); //can't read string from decrypt method, so password isn't generated
                         }
                     }
                 }

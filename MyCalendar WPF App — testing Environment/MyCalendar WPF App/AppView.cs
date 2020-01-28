@@ -20,6 +20,7 @@ namespace MyCalendar_WPF_App
         private (int, int) _currentDayCount;
         private int _b; //start button index
         public static List<string> ButtonsWithEvent = new List<string>();
+        private string _key = "poiuytrewq128954";
 
         //main function to setup view
         public void Start()
@@ -68,9 +69,11 @@ namespace MyCalendar_WPF_App
             {
                 win.LocationLabel.Visibility = Visibility.Visible;
                 win.LocationLabel.Content = "Login";
+                win.LocationTextbox.Text = SettingsSave.GetSetting("login");
                 win.LocationTextbox.Visibility = Visibility.Visible;
                 win.PasswordLabel.Visibility = Visibility.Visible;
                 win.PasswordLabel.Content = "Password";
+                win.PasswordTextbox.Password = SettingsSave.GetSetting(Encryptor.Decrypt(_key, "password"));
                 win.PasswordTextbox.Visibility = Visibility.Visible;
                 win.RecipentLabel.Visibility = Visibility.Visible;
                 win.RecipentLabel.Content = "Recipent";

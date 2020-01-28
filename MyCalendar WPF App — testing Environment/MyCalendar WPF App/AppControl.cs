@@ -41,10 +41,8 @@ namespace MyCalendar_WPF_App
         //method to save def mail
         public void SaveDefaultMail(string login, string password)
         {
-            MessageBox.Show("login");
             SettingsSave.SetSetting("login", login);
             SettingsSave.SetSetting("password", Encryptor.Encrypt(_key, password));
-            MessageBox.Show(SettingsSave.GetSetting("login"));
         }
 
         //method to save def event
@@ -54,6 +52,7 @@ namespace MyCalendar_WPF_App
             SettingsSave.SetSetting("secret", secret);
             SettingsSave.SetSetting("projectID", projectID);
             SettingsSave.SetSetting("account", account);
+            CustomJson();
         }
 
         public void CustomJson()
