@@ -3,13 +3,308 @@
   <members name ="Note">
     <Note>
       <summary>
-        Jedno zdanie, żebyś wiedział, że tu opis główny
+        The main <c>Note</c> class.
+        Contains the base for object creation to store all custom note data in variables.
       </summary>
+      <list type="bullet">
+        <item>
+          <term>Default Constructor</term>
+          <description>Main constructor of the class used to initialize object</description>
+        </item>
+      <item>
+        <term>Alternative Constructor</term>
+        <description>Alt constructor to create object with values from database searched by name</description>
+      </item>
+        <item>
+          <term>CheckForTable</term>
+          <description>Search database for values by name</description>
+        </item>
+      <item>
+        <term>CheckForRow</term>
+      <description>Search database for selected row in table by name</description>
+      </item>
+        <item>
+          <term>GetValue</term>
+          <description>return selected value from the object</description>
+        </item>
+        <item>
+          <term>GetReminder</term>
+          <description>Get values of Reminder bool</description>
+        </item>
+        <item>
+          <term>Save</term>
+          <description>Save object values into database</description>
+        </item>
+        <item>
+          <term>Delete</term>
+          <description>Delete object values from database</description>
+        </item>
+        <item>
+          <term>StaticDelete</term>
+          <description>Delete values from database searched by the name</description>
+        </item>
+        <item>
+          <term>GetSearch</term>
+          <description>Search database for choosen value</description>
+        </item>
+      </list>
     </Note>
-    
+    <NoteConstructor>
+      <summary>Deafult constructor of Note object</summary>
+    <param name="name">String with the name of the note</param>
+    <param name="date">String with a date when note was added</param>
+    <param name="title">String with a title of the note</param>
+    <param name="description">String with a description of the note</param>
+    <param name="reminder">Bool set is reminder on/off</param>
+    </NoteConstructor>
+    <AlterNoteConstructor>
+      <summary>Alternative constructor that creates object using the data from database</summary>
+      <param name="name">String by which values are selected from database</param>
+    </AlterNoteConstructor>
+    <CheckForTable>
+      <summary>Check if selected table exist in database</summary>
+    <param name="tableName">Name which is searched in database</param>
+    <returns>table exist or table doesn't exist</returns>
+    </CheckForTable>
+    <CheckForRow>
+      <summary>Search database for selected row in table by name</summary>
+    <param name="type">String which determine table name</param>
+    <param name="name">String which determine row beginning of searched row</param>
+      <returns>row exist in table or not</returns>
+    </CheckForRow>
+    <GetValue>
+      <summary>return selected value from the object</summary>
+    <param name="value">Selected value for getter</param>
+      <returns>String with selected value</returns>
+    </GetValue>
+    <GetReminder>
+      <summary>Get values of Reminder bool</summary>
+    <returns>Bool value of reminder</returns>
+    </GetReminder>
+    <Save>
+      <summary>Save object values into database</summary>
+    </Save>
+    <Delete>
+      <summary>Delete object values from database</summary>
+    </Delete>
+    <StaticDelete>
+      <summary>Delete values from database searched by the name</summary>
+    <param name="name">Name value of row to delete</param>
+    </StaticDelete>
+    <GetSeatch>
+      <summary>Search database for choosen value</summary>
+      <param name="value">Name of the value by which database is searched</param>
+      <returns>List of search results</returns> 
+    </GetSeatch>
   </members>
-  <members name="CustomMail"></members>
-  <members name="MyEvent"></members>
-  <members name="SettingsSave"></members>
-  <members name="Encyptor"></members>
+  <members name="CustomMail">
+     <CustomMail>
+      <summary>
+        The main <c>CustomMail</c> class.
+        Contains store the CustomMail object values inherited from the Note class
+      </summary>
+      <list type="bullet">
+        <item>
+          <term>Default Constructor</term>
+          <description>Main constructor of the class used to initialize object</description>
+        </item>
+      <item>
+        <term>Alternative Constructor</term>
+        <description>Alt constructor to create object with values from database searched by name</description>
+      </item>
+        <item>
+          <term>GetValue</term>
+          <description>return selected value from the object</description>
+        </item>
+        <item>
+          <term>GetSended</term>
+          <description>Get values of Reminder bool</description>
+        </item>
+        <item>
+          <term>Save</term>
+          <description>Save object values into database</description>
+        </item>
+        <item>
+          <term>SendMail</term>
+          <description>Send mail by gmail smtp client based on values from the object</description>
+        </item>
+        <item>
+          <term>StaticSendMail</term>
+          <description>Send mail by gmail smtp client with values selected from database by name</description>
+        </item>
+        <item>
+          <term>Delete</term>
+          <description>Delete object values from database</description>
+        </item>
+        <item>
+          <term>StaticDelete</term>
+          <description>Delete values from database searched by the name</description>
+        </item>
+      </list>
+    </CustomMail>
+    <CustomMailConstructor>
+      <summary>Deafult constructor of CustomMail object</summary>
+      <param name="name">String with the name of the mail</param>
+      <param name="date">String with a date when mail must be sended</param>
+      <param name="title">String with a title of the mail</param>
+      <param name="description">String with a description of the mail</param>
+      <param name="reminder">Bool set is mail sended</param>
+      <param name="login">String with login of sender</param>
+      <param name="password">String with password of sender</param>
+      <param name="recipent">String with recipent e-mail adress</param>
+    </CustomMailConstructor>
+    <AlterCustomMailConstructor>
+      <summary>Alternative constructor that creates object using the data from database</summary>
+      <param name="name">String by which values are selected from database</param>
+    </AlterCustomMailConstructor>
+    <GetValue>
+      <summary>return selected value from the object</summary>
+      <param name="value">Selected value for getter</param>
+      <returns>String with selected value</returns>
+    </GetValue>
+    <GetSended>
+      <summary>Get values of Sended bool</summary>
+    <returns>Bool if mail was sended</returns>
+    </GetSended>
+    <Save>
+      <summary>Save object values into database</summary>
+    </Save>
+    <SendMail>
+      <summary>Send mail by gmail smtp client based on values from the object</summary>
+    </SendMail>
+    <StaticSendMail>
+      <summary>Send mail by gmail smtp client with values selected from database by name</summary>
+      <param name="name">Name by which database is searched for values to send mail</param>
+      <returns>String with information about sending results</returns>
+    </StaticSendMail>
+    <GetSeatch>
+      <summary>Search database for choosen value</summary>
+      <param name="value">Name of the value by which database is searched</param>
+      <returns>List of search results</returns> 
+    </GetSeatch>
+    <Delete>
+      <summary>Delete object values from database</summary>
+    </Delete>
+    <StaticDelete>
+      <summary>Delete values from database searched by the name</summary>
+      <param name="name">Name value of row to delete</param>
+    </StaticDelete>
+  </members>
+  <members name="MyEvent">
+    <MyEvent>
+      <summary>
+        The main <c>MyEvent</c> class.
+        Contains store the MyEvent object values inherited from the Note class
+      </summary>
+      <list type="bullet">
+        <item>
+          <term>Default Constructor</term>
+          <description>Main constructor of the class used to initialize object</description>
+        </item>
+        <item>
+          <term>Alternative Constructor</term>
+          <description>Alt constructor to create object with values from database searched by name</description>
+        </item>
+        <item>
+          <term>GetValue</term>
+          <description>return selected value from the object</description>
+        </item>
+        <item>
+          <term>Save</term>
+          <description>Save object values into database</description>
+        </item>
+                <item>
+          <term>SendEvent</term>
+          <description>Synchronize object with Google Calendar and send values to user Google Account using AOTH verifictaion</description>
+        </item>
+        <item>
+          <term>CreateJSon</term>
+          <description>Creates custom credentials.json file used to verify user access by browser</description>
+        </item>
+        <item>
+          <term>Delete</term>
+          <description>Delete object values from database</description>
+        </item>
+        <item>
+          <term>StaticDelete</term>
+          <description>Delete values from database searched by the name</description>
+        </item>
+        <item>
+          <term>GetSearch</term>
+          <description>Search database for choosen value</description>
+        </item>   
+      </list>
+    </MyEvent>
+  <MyEventConstructor>
+      <summary>Deafult constructor of MyEvent object</summary>
+      <param name="name">String with the name of the event</param>
+      <param name="date">String with a start date of event</param>
+      <param name="title">String with a title of the event</param>
+      <param name="description">String with a description of the event</param>
+      <param name="reminder">Bool is sms reminder checked</param>
+      <param name="login">String with end date of event</param>
+      <param name="location">String with location of the event</param>
+  </MyEventConstructor>
+    <AlterMyEventConstructor>
+      <summary>Alternative constructor that creates object using the data from database</summary>
+      <param name="name">String by which values are selected from database</param>
+    </AlterMyEventConstructor>
+    <GetEventValues>
+      <summary>return selected value from the object</summary>
+      <param name="value">Selected value for getter</param>
+      <returns>String with selected value</returns>
+    </GetEventValues>
+    <Save>
+      <summary>Save object values into database</summary>
+    </Save>
+    <SendEvent>
+      <summary>Using values of the object send data to Google Account and connects by custom json file</summary>
+    </SendEvent>
+    <CreateJSon>
+      <summary>Using parameters and streamwritter creates credentials.json file which is required to connect with google account via browser</summary>
+      <param name="curID">String with the google account client ID</param>
+      <param name="curProID">String with the google account project ID</param>
+      <param name="curSecret">String with a secret code used to verify connection with a google account</param>
+    </CreateJSon>
+      <Delete>
+      <summary>Delete object values from database</summary>
+    </Delete>
+    <StaticDelete>
+      <summary>Delete values from database searched by the name</summary>
+    <param name="name">Name value of row to delete</param>
+    </StaticDelete>
+    <GetSeatch>
+      <summary>Search database for choosen value</summary>
+      <param name="value">Name of the value by which database is searched</param>
+      <returns>List of search results</returns> 
+    </GetSeatch>
+  </members>
+  <members name="SettingsSave">
+    <SettingsSave>
+       <summary>
+        The <c>SettingsSave</c> class.
+        Contains methods used to connect with App.config file and overwrite custom settings
+      </summary>
+      <list type="bullet">
+        <item>
+          <term>GetSetting</term>
+          <description>Main constructor of the class used to initialize object</description>
+        </item>
+        <item>
+          <term>SetSetting</term>
+          <description>Alt constructor to create object with values from database searched by name</description>
+        </item>
+      </list>
+    </SettingsSave>
+    <GetSettings>
+      <summary>Reads App.config file using sended key</summary>
+      <param name="key">String with xml key to search config file</param>
+    </GetSettings>
+    <SetSettings>
+      <summary>Write App.config file by sended key with a sended value</summary>
+    <param name="key">String with xml key to search config file</param>
+    <param name="value">String with xml value to overwrite selected key in config file</param>
+    </SetSettings>
+  </members>
+  <members name="Encryptor"></members>
 </docs> 

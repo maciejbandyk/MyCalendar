@@ -37,6 +37,7 @@ namespace CustomCalendar
 
 
         //default constructor
+        /// <include file='CustomCalendar' path='docs/members[@name="Note"]/NoteConstructor/*'>
         public Note(string name, string date, string title, string description, bool reminder)
         {
             CreateTable();
@@ -48,6 +49,7 @@ namespace CustomCalendar
         }
 
         //get note directly from database
+        /// <include file='CustomCalendar' path='docs/members[@name="Note"]/AlterNoteConstructor/*'>
         public Note(string name)
         {
             using var con = new SQLiteConnection(_database);
@@ -69,6 +71,7 @@ namespace CustomCalendar
             con.Close();
         }
         //check if table exists
+        /// <include file='CustomCalendar' path='docs/members[@name="Note"]/CheckForTable/*'>
         public static bool CheckForTable(string tableName)
         {
             try
@@ -87,6 +90,7 @@ namespace CustomCalendar
             }
         }
         //check for row
+        /// <include file='CustomCalendar' path='docs/members[@name="Note"]/CheckForRow/*'>
         public static bool CheckForRow(string type, string name)
         {
             int exist = 0;
@@ -126,8 +130,9 @@ namespace CustomCalendar
                 cmd.ExecuteNonQuery();
             }
         }
-        
+
         //get private values
+        /// <include file='CustomCalendar' path='docs/members[@name="Note"]/GetValue/*'>
         public string GetValue(string value) =>
          value.ToLower() switch
          {
@@ -138,6 +143,9 @@ namespace CustomCalendar
              "description"  => _description,
              _              => "Invalid Input",
          };
+
+        //get value of the reminder
+        /// <include file='CustomCalendar' path='docs/members[@name="Note"]/GetReminder/*'>
         public bool GetReminder() => _reminder;
         
         //Save note object to database
@@ -153,7 +161,8 @@ namespace CustomCalendar
             cmd.ExecuteNonQuery();
         }
 
-        //delete note from database by name
+        //delete note from database by object
+        /// <include file='CustomCalendar' path='docs/members[@name="Note"]/Delete/*'>
         public void Delete() 
         {
             using var con = new SQLiteConnection(_database);
@@ -164,6 +173,8 @@ namespace CustomCalendar
             cmd.ExecuteNonQuery();
         }
 
+        //delete note from database by name
+        /// <include file='CustomCalendar' path='docs/members[@name="Note"]/StaticDelete/*'>
         public static void StaticDelete(string name) 
         {
             using var con = new SQLiteConnection(_sdatabase);
@@ -174,6 +185,7 @@ namespace CustomCalendar
             cmd.ExecuteNonQuery();
         }
         //get static list of elements with name
+        /// <include file='CustomCalendar' path='docs/members[@name="Note"]/GetSearch/*'>
         public static List<string> GetSearch(string value) => SearchDataBase("Notes", value);
 
         protected static List<string> SearchDataBase(string type, string nameStart)
@@ -216,8 +228,9 @@ namespace CustomCalendar
         }
 
     }
- 
+
     //define user mails
+    /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="CustomMail"]/CustomMail/*'/>
     public class CustomMail : Note
     {
         //define variables
@@ -231,6 +244,7 @@ namespace CustomCalendar
         private static string _skey = "poiuytrewq128954";
 
         //default constructor
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="CustomMail"]/CustomMailConstructor/*'/>
         public CustomMail(string name, string date, string title, string description, bool reminder, string login, string password, string recipent) : base(name, date, title, description, reminder)
         {
             CreateTable();
@@ -241,6 +255,7 @@ namespace CustomCalendar
         }
 
         //constructor from database
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="CustomMail"]/AlterCustomMailConstructor/*'/>
         public CustomMail(string name) : base(name)
         {
             //code re-use to make sure all data is readed correctly
@@ -282,6 +297,7 @@ namespace CustomCalendar
         }
 
         //get values defined for mail
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="CustomMail"]/GetMailValues/*'/>
         public string GetMailValues(string value) =>
             value.ToLower() switch
             {
@@ -291,10 +307,13 @@ namespace CustomCalendar
                 _          => "Invalid value",
             };
 
+        //get sender value
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="CustomMail"]/GetSended/*'/>
         public bool GetSended() => _sended;
 
 
         //save mail to database
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="CustomMail"]/Save/*'/>
         public new void Save()
         {
             string sended = _sended == true ? "1" : "0";
@@ -309,9 +328,10 @@ namespace CustomCalendar
             con.Close();
         }
 
+        //send mail from object
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="CustomMail"]/SendMail/*'/>
         public string SendMail()
         {
-            //send mail from object   
                 try
                 {
                     var message = new MailMessage(_login, _recipent);
@@ -344,6 +364,7 @@ namespace CustomCalendar
         }
 
         //send mail directly from database
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="CustomMail"]/StaticSendMail/*'/>
         public static string StaticSendMail(string name) //check if table mail exist
         {
             using var con = new SQLiteConnection(_sdatabase);
@@ -396,9 +417,11 @@ namespace CustomCalendar
         }
 
         //get static list of elements with name
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="CustomMail"]/GetSeatch/*'/>
         public static new List<string> GetSearch(string value) => SearchDataBase("Mails", value);
 
         //delete mail from database
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="CustomMail"]/Delete/*'/>
         public new void Delete()
         {
             using var con = new SQLiteConnection(_database);
@@ -408,7 +431,8 @@ namespace CustomCalendar
             cmd.CommandText = $"DELETE FROM Mails WHERE Name = \"{_name}\";";
             cmd.ExecuteNonQuery();
         }
-
+        //static delete mail
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="CustomMail"]/StaticDelete/*'/>
         public new static void StaticDelete(string name)
         {
             using var con = new SQLiteConnection(_sdatabase);
@@ -420,8 +444,9 @@ namespace CustomCalendar
         }
 
     }
-    
+
     //define user events
+    /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="MyEvent"]/MyEvent/*'/>
     public class MyEvent : Note
     {
         //define variables
@@ -430,6 +455,7 @@ namespace CustomCalendar
         private string _location;
 
         //default constructor
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="MyEvent"]/MyEventConstructor/*'/>
         public MyEvent(string name, string date, string title, string description, bool reminder, string endDate, string location) : base(name, date, title, description, reminder)
         {
             CreateTable();
@@ -444,6 +470,7 @@ namespace CustomCalendar
         }
 
         //alternative constructor
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="MyEvent"]/AlterMyEventConstructor/*'/>
         public MyEvent(string name) : base(name)
         {
             //code re-use to make sure all data is readed correctly
@@ -469,6 +496,7 @@ namespace CustomCalendar
         }
 
         //get values defined for event
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="MyEvent"]/GetEventValues/*'/>
         public string GetEventValues(string value) =>
             value.ToLower() switch
             {
@@ -493,6 +521,7 @@ namespace CustomCalendar
         }
 
         //save event to database
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="MyEvent"]/Save/*'/>
         public new void Save()
         {
             string reminder = _reminder == true ? "1" : "0";
@@ -507,9 +536,10 @@ namespace CustomCalendar
             con.Close();
         }
 
+        //send event from object   
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="MyEvent"]/SendEvent/*'/>
         public void SendEvent()
         {
-            //send event from object   
                 string mail = SettingsSave.GetSetting("account");
 
                 string[] Scopes = { CalendarService.Scope.Calendar };
@@ -575,7 +605,7 @@ namespace CustomCalendar
         new EventAttendee() {
             Organizer = true,
             Email = mail,
-        ResponseStatus = "accepted" }, /// automaticly confirmed
+        ResponseStatus = "accepted" }, // automaticly confirmed
                 },
 
                     Reminders = new Event.RemindersData()
@@ -587,8 +617,6 @@ namespace CustomCalendar
                     }
 
                 };
-
-
                 //Add event to calendar by google calendar API
                 String calendarId = "primary";
                 EventsResource.InsertRequest request = service.Events.Insert(newEvent, calendarId);
@@ -596,7 +624,8 @@ namespace CustomCalendar
             
 
         }
-        
+        //Create credentiatls.json file
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="MyEvent"]/CreateJSon/*'/>
         public static void CreateJSon(string curID, string curProID, string curSecret)
         {
             TextWriter credentials = new StreamWriter("credentials.json");
@@ -604,6 +633,7 @@ namespace CustomCalendar
             credentials.Close();
         }
         //delete event from database
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="MyEvent"]/Delete/*'/>
         public new void Delete()
         {
             using var con = new SQLiteConnection(_database);
@@ -616,8 +646,10 @@ namespace CustomCalendar
         }
 
         //get static list of elements with name
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="MyEvent"]/GetSearch/*'/>
         public static new List<string> GetSearch(string value) => SearchDataBase("Events", value);
 
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="MyEvent"]/StaticDelete/*'/>
         public new static void StaticDelete(string name)
         {
             using var con = new SQLiteConnection(_sdatabase);
@@ -630,15 +662,19 @@ namespace CustomCalendar
         }
 
     }
-
+    //Write/Read App settings
+    /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="SettingsSave"]/SettingsSave/*'/>
     public class SettingsSave
     {
-        //method to save settings to App.Config file
+        //method to load settings from App.Config file
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="SettingsSave"]/GetSetting/*'/>
         public static string GetSetting(string key)
         {
             return ConfigurationManager.AppSettings[key];
         }
 
+        //method to save settings in App.Config file
+        /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="SettingsSave"]/SetSetting/*'/>
         public static void SetSetting(string key, string value)
         {
             Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -648,41 +684,41 @@ namespace CustomCalendar
             ConfigurationManager.RefreshSection("appSettings");
         }
     }
-
+    
     public class Encryptor
     {
         //method for encrypt password
         public static string Encrypt(string key, string text)
         {
-            ///create arrays for holding bytes
+            //create arrays for holding bytes
             byte[] iv = new byte[16];
             byte[] array;
 
             using (Aes aes = Aes.Create())
             {
-                aes.Key = Encoding.UTF8.GetBytes(key);  ///convert key to bytes
+                aes.Key = Encoding.UTF8.GetBytes(key);  //convert key to bytes
                 aes.IV = iv;
-                ///transformation interface gets key and iv values
+                //transformation interface gets key and iv values
                 ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
 
-                using (MemoryStream memoryStream = new MemoryStream()) ///write stream to memory
+                using (MemoryStream memoryStream = new MemoryStream()) //write stream to memory
                 {
-                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write)) ///connect stream
+                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write)) //connect stream
                     {
-                        using (StreamWriter streamWriter = new StreamWriter(cryptoStream)) ///saves stream
+                        using (StreamWriter streamWriter = new StreamWriter(cryptoStream)) //saves stream
                         {
                             streamWriter.Write(text);
                         }
-                        ///put bytes into array
+                        //put bytes into array
                         array = memoryStream.ToArray();
                     }
                 }
 
             }
-            ///convert array into string
+            //convert array into string
             return Convert.ToBase64String(array);
         }
-        ///method for decrypt password
+        //method for decrypt password
         public static string Decrypt(string key, string text)
         {
             ///create array for bytes
@@ -691,17 +727,17 @@ namespace CustomCalendar
 
             using (Aes aes = Aes.Create())
             {
-                aes.Key = Encoding.UTF8.GetBytes(key); ///convert bytes to stream
+                aes.Key = Encoding.UTF8.GetBytes(key); //convert bytes to stream
                 aes.IV = iv;
 
-                ///transformation interface gets key and iv values
+                //transformation interface gets key and iv values
                 ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 
-                using (MemoryStream memoryStream = new MemoryStream(buffer)) ///write stream to memory
+                using (MemoryStream memoryStream = new MemoryStream(buffer)) //write stream to memory
                 {
-                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read)) ///connect stream
+                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read)) //connect stream
                     {
-                        using (StreamReader streamReader = new StreamReader(cryptoStream)) ///reads stream
+                        using (StreamReader streamReader = new StreamReader(cryptoStream)) //reads stream
                         {
                             return streamReader.ReadToEnd(); //can't read string from decrypt method, so password isn't generated
                         }
