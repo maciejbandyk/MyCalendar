@@ -8,7 +8,7 @@
         Title="MessageWindow" Height="450" Width="800">
     <Grid>
         <Label x:Name="TextLabel" HorizontalAlignment="Center" Margin="0,133,0,0" VerticalAlignment="Top" Height="84" Width="516" FontSize="22"/>
-        <Button x:Name="ConfirmButton" Content="Button" HorizontalAlignment="Left" Margin="400,297,0,0" VerticalAlignment="Top" Height="84" Width="218" FontSize="22" Cursor="Hand"/>
+        <Button x:Name="ConfirmButton" Content="OK" HorizontalAlignment="Left" Margin="400,297,0,0" VerticalAlignment="Top" Height="84" Width="218" FontSize="22" Cursor="Hand"/>
 
     </Grid>
 </Window>
