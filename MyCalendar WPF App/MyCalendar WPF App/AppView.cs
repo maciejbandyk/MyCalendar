@@ -82,6 +82,10 @@ namespace MyCalendar_WPF_App
                 win.LocationLabel.Visibility = Visibility.Visible;
                 win.LocationLabel.Content = "Location";
                 win.LocationTextbox.Visibility = Visibility.Visible;
+                win.PasswordLabel.Visibility = Visibility.Hidden;
+                win.PasswordTextbox.Visibility = Visibility.Hidden;
+                win.RecipentLabel.Visibility = Visibility.Hidden;
+                win.RecipentTextBox.Visibility = Visibility.Hidden;
             }
             else
             {
