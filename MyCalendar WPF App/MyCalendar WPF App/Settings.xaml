@@ -12,17 +12,17 @@
         <Label x:Name="PasswordLabel" Content="Password" HorizontalAlignment="Left" Margin="54,95,0,0" VerticalAlignment="Top"/>
         <PasswordBox x:Name="PasswordTextBox" HorizontalAlignment="Left" Margin="155,94,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.492,0.522"/>
         <Button x:Name="SetDefaultMailBtn" Content="Apply" HorizontalAlignment="Center" Margin="0,74,0,0" VerticalAlignment="Top" Click="SetDefaultMailBtn_Click"/>
-        <Label x:Name="MailTitle" Content="Label" HorizontalAlignment="Left" Margin="179,10,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="EventTitle" Content="Label" HorizontalAlignment="Left" Margin="179,196,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.461"/>
+        <Label x:Name="MailTitle" Content="Save Mail" HorizontalAlignment="Left" Margin="167,21,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="EventTitle" Content="Google Authority" HorizontalAlignment="Left" Margin="147,196,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.461" Cursor="Hand"/>
         <Label x:Name="ProjectIdLabel" Content="Project ID" HorizontalAlignment="Left" Margin="54,249,0,0" VerticalAlignment="Top"/>
         <Label x:Name="ClientIdLabel" Content="Client ID" HorizontalAlignment="Left" Margin="54,293,0,0" VerticalAlignment="Top"/>
         <Label x:Name="ClientSecretLabel" Content="Client Secret" HorizontalAlignment="Left" Margin="54,330,0,0" VerticalAlignment="Top"/>
         <Label x:Name="EventMailLabel" Content="Event Mail" HorizontalAlignment="Left" Margin="54,374,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="ProjectIdTextBox" HorizontalAlignment="Left" Margin="155,249,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="ClientIdTextBox" HorizontalAlignment="Left" Margin="155,294,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="ClientIdTextBox" HorizontalAlignment="Left" Margin="155,294,0,0" TextWrapping="Wrap" VerticalAlignment="Top" MinWidth="120"/>
         <TextBox x:Name="ClientSecretTextBox" HorizontalAlignment="Left" Margin="155,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="EventMailTextBox" HorizontalAlignment="Left" Margin="155,373,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="SetDefaultEventBtn" Content="Set" HorizontalAlignment="Center" Margin="0,320,0,0" VerticalAlignment="Top" Click="SetDefaultEventBtn_Click"/>
+        <Button x:Name="SetDefaultEventBtn" Content="Set" HorizontalAlignment="Center" Margin="0,354,0,0" VerticalAlignment="Top" Click="SetDefaultEventBtn_Click"/>
 
         <TextBlock Width="400"  Margin="54,413,346,34">
             <Hyperlink NavigateUri="https://developers.google.com/adwords/api/docs/guides/authentication">
