@@ -173,18 +173,21 @@ namespace MyCalendar_WPF_App
         {
             Note note = new Note(name, date, title, description, reminder);
             _control.SaveNote(note);
+            mWindow.RefreshCalendar();
             win.Close();
         }
         private void SaveMailButton_Click(string name, string date, string title, string description, bool reminder, string login, string password, string recipent, AddWindow win)
         {
             CustomMail mail = new CustomMail(name, date, title, description, reminder, login, password, recipent);
             _control.SaveMail(mail);
+            mWindow.RefreshCalendar();
             win.Close();
         }
         private void SaveEventButton_Click(string name, string date, string title, string description, bool reminder, string endDate, string location, AddWindow win)
         {
             MyEvent mevent = new MyEvent(name, date, title, description, reminder, endDate, location);
             _control.SaveEvent(mevent);
+            mWindow.RefreshCalendar();
             win.Close();
         }
 
