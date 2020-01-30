@@ -63,7 +63,7 @@ namespace MyCalendar_WPF_App
             }
             else
             {
-                if (File.Exists(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\credentials.json") == false) //json exist
+                if (File.Exists(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "\\credentials.json") == false) //json exist
                 {
                     MyEvent.CreateJSon(SettingsSave.GetSetting("clientID"), SettingsSave.GetSetting("projectID"), SettingsSave.GetSetting("secret"));
                 }

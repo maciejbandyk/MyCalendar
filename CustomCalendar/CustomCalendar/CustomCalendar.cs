@@ -29,8 +29,8 @@ namespace CustomCalendar
         protected string _description;
         protected bool _reminder;
 
-        protected string _database = @"URI=file:" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\CalendarDB.db";
-        protected static string _sdatabase = @"URI=file:" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\CalendarDB.db";
+        protected string _database = @"URI=file:" + Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "\\CalendarDB.db";
+        protected static string _sdatabase = @"URI=file:" + Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "\\CalendarDB.db";
 
 
 
@@ -223,6 +223,12 @@ namespace CustomCalendar
         protected static string LoadConnectionString(string id = "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
+        }
+
+        public static void CreateDatabase()
+        {
+            SQLiteConnection.CreateFile("CalendarDB.db");
+
         }
 
     }

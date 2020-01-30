@@ -5,6 +5,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>MyCalendar_WPF_App</RootNamespace>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>calendarIcon.ico</ApplicationIcon>
+    <StartupObject>MyCalendar_WPF_App.App</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

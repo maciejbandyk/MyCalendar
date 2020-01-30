@@ -35,6 +35,7 @@ namespace MyCalendar_WPF_App
         {
             main = this;
             InitializeComponent();
+            Note.CreateDatabase();
             MonthCombobox.SelectedIndex = AppView.GetCurMonthIndex();
             YearCombobox.Text = AppView.GetCurrentYear();
             _view = new AppView();

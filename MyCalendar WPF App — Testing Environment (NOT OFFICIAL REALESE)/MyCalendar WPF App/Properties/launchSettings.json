@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "MyCalendar WPF App": {
+      "commandName": "Executable"
+    }
+  }
+}
