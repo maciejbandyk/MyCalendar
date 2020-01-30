@@ -11,12 +11,23 @@
           "Google.Apis.Calendar.v3": "1.43.0.1830",
           "System.Configuration.ConfigurationManager": "4.7.0",
           "System.Data.Odbc": "4.7.0",
-          "System.Data.SQLite.Core": "1.0.112"
+          "System.Data.SQLite.Core": "1.0.112",
+          "docfx": "2.48.1",
+          "docfx.console": "2.48.1"
         },
         "runtime": {
           "CustomCalendar.dll": {}
         }
       },
+      "docfx/2.48.1": {
+        "runtime": {
+          "lib/net472/docfx.exe": {
+            "assemblyVersion": "2.48.1.0",
+            "fileVersion": "2.48.1.24597"
+          }
+        }
+      },
+      "docfx.console/2.48.1": {},
       "Google.Apis/1.43.0": {
         "dependencies": {
           "Google.Apis.Core": "1.43.0",
@@ -1054,6 +1065,20 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "docfx/2.48.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Mr0mzu+h7welBriltLM11Mb0ZvDFS57NOvzk5pBbIeNFWFa0IGXOg8sj5XvRG+/Akq2XYFzc8PK1/p0GiC034Q==",
+      "path": "docfx/2.48.1",
+      "hashPath": "docfx.2.48.1.nupkg.sha512"
+    },
+    "docfx.console/2.48.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dl4N/6zFwkI9DRRShTsR1/27+w4/yaf2Z9gzcORo11+4SCf9TPiNcJEWoKZnEsEIbjN4mBg+1bDwGZ30XPTOCA==",
+      "path": "docfx.console/2.48.1",
+      "hashPath": "docfx.console.2.48.1.nupkg.sha512"
     },
     "Google.Apis/1.43.0": {
       "type": "package",
