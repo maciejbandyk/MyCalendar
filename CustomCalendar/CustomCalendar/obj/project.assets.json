@@ -2,6 +2,21 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
+      "docfx/2.48.1": {
+        "type": "package",
+        "compile": {
+          "lib/net472/docfx.exe": {}
+        },
+        "runtime": {
+          "lib/net472/docfx.exe": {}
+        }
+      },
+      "docfx.console/2.48.1": {
+        "type": "package",
+        "build": {
+          "build/docfx.console.targets": {}
+        }
+      },
       "Google.Apis/1.43.0": {
         "type": "package",
         "dependencies": {
@@ -1647,6 +1662,133 @@
     }
   },
   "libraries": {
+    "docfx/2.48.1": {
+      "sha512": "Mr0mzu+h7welBriltLM11Mb0ZvDFS57NOvzk5pBbIeNFWFa0IGXOg8sj5XvRG+/Akq2XYFzc8PK1/p0GiC034Q==",
+      "type": "package",
+      "path": "docfx/2.48.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "docfx.2.48.1.nupkg.sha512",
+        "docfx.nuspec",
+        "lib/net472/docfx.exe"
+      ]
+    },
+    "docfx.console/2.48.1": {
+      "sha512": "dl4N/6zFwkI9DRRShTsR1/27+w4/yaf2Z9gzcORo11+4SCf9TPiNcJEWoKZnEsEIbjN4mBg+1bDwGZ30XPTOCA==",
+      "type": "package",
+      "path": "docfx.console/2.48.1",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/docfx.console.targets",
+        "content/.gitignore",
+        "content/api/.gitignore",
+        "content/api/index.md",
+        "content/articles/intro.md",
+        "content/articles/toc.md",
+        "content/docfx.json",
+        "content/index.md",
+        "content/toc.yml",
+        "docfx.console.2.48.1.nupkg.sha512",
+        "docfx.console.nuspec",
+        "tools/AutoMapper.dll",
+        "tools/CommandLine.dll",
+        "tools/DotLiquid.dll",
+        "tools/Dotnet.ProjInfo.Helpers.dll",
+        "tools/Dotnet.ProjInfo.dll",
+        "tools/FSharp.Compiler.Service.MSBuild.v12.dll",
+        "tools/FSharp.Compiler.Service.dll",
+        "tools/FSharp.Core.dll",
+        "tools/HtmlAgilityPack.dll",
+        "tools/Jint.dll",
+        "tools/Markdig.dll",
+        "tools/Microsoft.Build.Locator.dll",
+        "tools/Microsoft.CodeAnalysis.CSharp.Features.dll",
+        "tools/Microsoft.CodeAnalysis.CSharp.Workspaces.dll",
+        "tools/Microsoft.CodeAnalysis.CSharp.dll",
+        "tools/Microsoft.CodeAnalysis.Features.dll",
+        "tools/Microsoft.CodeAnalysis.FlowAnalysis.Utilities.dll",
+        "tools/Microsoft.CodeAnalysis.VisualBasic.Features.dll",
+        "tools/Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll",
+        "tools/Microsoft.CodeAnalysis.VisualBasic.dll",
+        "tools/Microsoft.CodeAnalysis.Workspaces.MSBuild.dll",
+        "tools/Microsoft.CodeAnalysis.Workspaces.dll",
+        "tools/Microsoft.CodeAnalysis.dll",
+        "tools/Microsoft.DiaSymReader.dll",
+        "tools/Microsoft.DocAsCode.Build.Common.dll",
+        "tools/Microsoft.DocAsCode.Build.ConceptualDocuments.dll",
+        "tools/Microsoft.DocAsCode.Build.Engine.dll",
+        "tools/Microsoft.DocAsCode.Build.ManagedReference.dll",
+        "tools/Microsoft.DocAsCode.Build.OverwriteDocuments.dll",
+        "tools/Microsoft.DocAsCode.Build.ResourceFiles.dll",
+        "tools/Microsoft.DocAsCode.Build.RestApi.dll",
+        "tools/Microsoft.DocAsCode.Build.SchemaDriven.dll",
+        "tools/Microsoft.DocAsCode.Build.TableOfContents.dll",
+        "tools/Microsoft.DocAsCode.Build.UniversalReference.dll",
+        "tools/Microsoft.DocAsCode.Common.dll",
+        "tools/Microsoft.DocAsCode.DataContracts.Common.dll",
+        "tools/Microsoft.DocAsCode.DataContracts.ManagedReference.dll",
+        "tools/Microsoft.DocAsCode.DataContracts.RestApi.dll",
+        "tools/Microsoft.DocAsCode.DataContracts.UniversalReference.dll",
+        "tools/Microsoft.DocAsCode.Dfm.dll",
+        "tools/Microsoft.DocAsCode.Glob.dll",
+        "tools/Microsoft.DocAsCode.HtmlToPdf.dll",
+        "tools/Microsoft.DocAsCode.MarkdigEngine.Extensions.dll",
+        "tools/Microsoft.DocAsCode.MarkdigEngine.Validators.dll",
+        "tools/Microsoft.DocAsCode.MarkdigEngine.dll",
+        "tools/Microsoft.DocAsCode.MarkdownLite.dll",
+        "tools/Microsoft.DocAsCode.Metadata.ManagedReference.Common.dll",
+        "tools/Microsoft.DocAsCode.Metadata.ManagedReference.FSharp.dll",
+        "tools/Microsoft.DocAsCode.Metadata.ManagedReference.Roslyn.dll",
+        "tools/Microsoft.DocAsCode.Metadata.ManagedReference.dll",
+        "tools/Microsoft.DocAsCode.Plugins.dll",
+        "tools/Microsoft.DocAsCode.YamlSerialization.dll",
+        "tools/Microsoft.Owin.Diagnostics.dll",
+        "tools/Microsoft.Owin.FileSystems.dll",
+        "tools/Microsoft.Owin.Host.HttpListener.dll",
+        "tools/Microsoft.Owin.Hosting.dll",
+        "tools/Microsoft.Owin.StaticFiles.dll",
+        "tools/Microsoft.Owin.dll",
+        "tools/Microsoft.VisualStudio.RemoteControl.dll",
+        "tools/Microsoft.VisualStudio.Utilities.Internal.dll",
+        "tools/Newtonsoft.Json.Schema.dll",
+        "tools/Newtonsoft.Json.dll",
+        "tools/NuGet.Common.dll",
+        "tools/NuGet.Configuration.dll",
+        "tools/NuGet.DependencyResolver.Core.dll",
+        "tools/NuGet.Frameworks.dll",
+        "tools/NuGet.LibraryModel.dll",
+        "tools/NuGet.Packaging.Core.Types.dll",
+        "tools/NuGet.Packaging.Core.dll",
+        "tools/NuGet.Packaging.dll",
+        "tools/NuGet.ProjectModel.dll",
+        "tools/NuGet.Protocol.dll",
+        "tools/NuGet.Versioning.dll",
+        "tools/Nustache.Core.dll",
+        "tools/Owin.dll",
+        "tools/SQLitePCLRaw.core.dll",
+        "tools/System.Buffers.dll",
+        "tools/System.Collections.Immutable.dll",
+        "tools/System.Composition.AttributedModel.dll",
+        "tools/System.Composition.Convention.dll",
+        "tools/System.Composition.Hosting.dll",
+        "tools/System.Composition.Runtime.dll",
+        "tools/System.Composition.TypedParts.dll",
+        "tools/System.Memory.dll",
+        "tools/System.Numerics.Vectors.dll",
+        "tools/System.Reflection.Metadata.dll",
+        "tools/System.Runtime.CompilerServices.Unsafe.dll",
+        "tools/System.Text.Encoding.CodePages.dll",
+        "tools/System.Threading.Tasks.Dataflow.dll",
+        "tools/System.Threading.Tasks.Extensions.dll",
+        "tools/YamlDotNet.dll",
+        "tools/docfx.exe",
+        "tools/docfx.exe.config",
+        "tools/itextsharp.dll"
+      ]
+    },
     "Google.Apis/1.43.0": {
       "sha512": "obrhmOs3G1NdKb6vJukj5nls3FJ8qcheSugvUDA5fHA+4sb9hOvSgtR4rzSiBFTSn30d8C9aJAUFlBtcFi4ltA==",
       "type": "package",
@@ -5918,7 +6060,9 @@
       "Google.Apis.Calendar.v3 >= 1.43.0.1830",
       "System.Configuration.ConfigurationManager >= 4.7.0",
       "System.Data.Odbc >= 4.7.0",
-      "System.Data.SQLite.Core >= 1.0.112"
+      "System.Data.SQLite.Core >= 1.0.112",
+      "docfx >= 2.48.1",
+      "docfx.console >= 2.48.1"
     ]
   },
   "packageFolders": {
@@ -5973,6 +6117,16 @@
           "System.Data.SQLite.Core": {
             "target": "Package",
             "version": "[1.0.112, )"
+          },
+          "docfx": {
+            "target": "Package",
+            "version": "[2.48.1, )"
+          },
+          "docfx.console": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[2.48.1, )"
           }
         },
         "imports": [
@@ -5993,5 +6147,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Pakiet „docfx 2.48.1” został przywrócony przy użyciu elementu „.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8” zamiast platformy docelowej projektu „.NETCoreApp,Version=v3.1”. Ten pakiet może nie być w pełni kompatybilny z Twoim projektem.",
+      "libraryId": "docfx",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }

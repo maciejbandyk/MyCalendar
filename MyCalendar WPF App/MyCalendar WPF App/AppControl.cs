@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Text;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using CustomCalendar;
 
 namespace MyCalendar_WPF_App
 {
     class AppControl
     {
-        private string _key = "poiuytrewq128954";
-
         public void SaveNote(Note note) { note.Save(); }
 
         public void SaveMail(CustomMail mail)
@@ -35,17 +29,17 @@ namespace MyCalendar_WPF_App
             mevent.Save();
         }
 
-        public void DeleteNote(string name) { Note.StaticDelete(name); }
+        public static void DeleteNote(string name) { Note.StaticDelete(name); }
 
-        public void DeleteMail(string name) { CustomMail.StaticDelete(name); }
+        public static void DeleteMail(string name) { CustomMail.StaticDelete(name); }
 
-        public void DeleteEvent(string name) { MyEvent.StaticDelete(name); }
+        public static void DeleteEvent(string name) { MyEvent.StaticDelete(name); }
 
         //method to save def mail
         public void SaveDefaultMail(string login, string password)
         {
             SettingsSave.SetSetting("login", login);
-            SettingsSave.SetSetting("password", Encryptor.Encrypt(_key, password));
+            SettingsSave.SetSetting("password", password);
         }
 
         //method to save def event
@@ -55,13 +49,17 @@ namespace MyCalendar_WPF_App
             SettingsSave.SetSetting("secret", secret);
             SettingsSave.SetSetting("projectID", projectID);
             SettingsSave.SetSetting("account", account);
+            CustomJson();
         }
 
         public void CustomJson()
         {
-            if (SettingsSave.GetSetting("clientID").Length == 0 || SettingsSave.GetSetting("secret").Length == 0 || SettingsSave.GetSetting("projectID").Length == 0 || SettingsSave.GetSetting("account").Length == 0)
+            if (SettingsSave.GetSetting("clientID") == "clientID" || SettingsSave.GetSetting("secret") == "secret" || SettingsSave.GetSetting("projectID") == "projectID" || SettingsSave.GetSetting("account") == "account")
             {
-                //message box
+                MessageWindow mw = new MessageWindow();
+                mw.TextLabel.Content = "Complete settings before!";
+                mw.Show();
+                return;
             }
             else
             {
@@ -82,27 +80,31 @@ namespace MyCalendar_WPF_App
             List<string> mailsNames = CustomMail.GetSearch(nameStart);
             List<string> eventsNames = MyEvent.GetSearch(nameStart);
 
-            if(notesNames.Count != 0)
+            List<string> notesNamesDis = notesNames.Distinct().ToList();
+            List<string> mailsNamesDis = mailsNames.Distinct().ToList();
+            List<string> eventsNamesDis = eventsNames.Distinct().ToList();
+
+            if (notesNamesDis.Count != 0)
             {
-                foreach(string name in notesNames)
+                foreach (string name in notesNamesDis)
                 {
                     Note note = new Note(name);
                     view.ShowNoteDisplay(note);
                 }
             }
 
-            if (mailsNames.Count != 0)
+            if (mailsNamesDis.Count != 0)
             {
-                foreach (string name in mailsNames)
+                foreach (string name in mailsNamesDis)
                 {
                     CustomMail mail = new CustomMail(name);
                     view.ShowMailDisplay(mail);
                 }
             }
 
-            if (eventsNames.Count != 0)
+            if (eventsNamesDis.Count != 0)
             {
-                foreach (string name in eventsNames)
+                foreach (string name in eventsNamesDis)
                 {
                     MyEvent mevent = new MyEvent(name);
                     view.ShowEventDisplay(mevent);
@@ -112,12 +114,12 @@ namespace MyCalendar_WPF_App
         //async method for execute send mail method
         public async void SendMailManager()
         {
-            Task<string> task = new Task<string>(SendEmail);           
+            Task<string> task = new Task<string>(SendEmail);
             task.Start();
             MessageWindow mw = new MessageWindow();
             string i = await task;
-            mw.TextLabel.Content =i;
-            if(i != "none")
+            mw.TextLabel.Content = i;
+            if (i != "none")
                 mw.Show();
         }
         //method to send mail every 1 hour

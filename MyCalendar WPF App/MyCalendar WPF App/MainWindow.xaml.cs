@@ -49,7 +49,7 @@ namespace MyCalendar_WPF_App
             YearCombobox.SelectionChanged += (o, e) => RefreshCalendar();
         }
 
-        private void RefreshCalendar()
+        public void RefreshCalendar()
         {
             if (MonthCombobox.SelectedItem == null) return;
             if (YearCombobox.SelectedItem == null) return;

@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Threading;
 using CustomCalendar;
 
 namespace MyCalendar_WPF_App
@@ -22,6 +20,7 @@ namespace MyCalendar_WPF_App
         private Dictionary<string, int> _months;
         private (int, int) _currentDayCount;
         private int _b; //start button index
+        public static List<string> ButtonsWithEvent = new List<string>();
 
         //main function to setup view
         public void Start()
@@ -71,9 +70,11 @@ namespace MyCalendar_WPF_App
             {
                 win.LocationLabel.Visibility = Visibility.Visible;
                 win.LocationLabel.Content = lang.Login;
+                win.LocationTextbox.Text = SettingsSave.GetSetting("login");
                 win.LocationTextbox.Visibility = Visibility.Visible;
                 win.PasswordLabel.Visibility = Visibility.Visible;
                 win.PasswordLabel.Content = lang.Password;
+                win.PasswordTextbox.Password = SettingsSave.GetSetting("password");
                 win.PasswordTextbox.Visibility = Visibility.Visible;
                 win.RecipentLabel.Visibility = Visibility.Visible;
                 win.RecipentLabel.Content = lang.Recipent;
@@ -134,28 +135,31 @@ namespace MyCalendar_WPF_App
             win.StartDayMonthBox.SelectionChanged += (sender, e) => DayMonthBox_SelectionChanged(win.StartDateDayBox, Convert.ToInt32(win.StartDayYearTextBox.Text), win.StartDayMonthBox.SelectedIndex + 1);
 
             if (type == "note")
-                win.SaveButton.Click += (sender, e) => SaveNoteButton_Click(win.StartDayYearTextBox + win.StartDayMonthBox.SelectedItem.ToString() + win.StartDateDayBox.SelectedItem.ToString() + win.StartDateHourBox.SelectedItem.ToString() + win.StartDateMinBox.SelectedItem.ToString() + random.Next(0, 1000).ToString(),
-                                                                        $"{win.StartDateDayBox.SelectedItem.ToString()}-{win.StartDayMonthBox.SelectedItem.ToString()}-{win.StartDayYearTextBox.Text} {win.StartDateHourBox.SelectedItem.ToString()}:{win.StartDateMinBox.SelectedItem.ToString()}",
+                win.SaveButton.Click += (sender, e) => SaveNoteButton_Click(win.StartDayYearTextBox.Text + win.StartDayMonthBox.Text + win.StartDateDayBox.Text + "-" + win.StartDateHourBox.Text + win.StartDateMinBox.Text + random.Next(0, 1000).ToString(),
+                                                                        $"{win.StartDateDayBox.Text}-{win.StartDayMonthBox.Text}-{win.StartDayYearTextBox.Text} {win.StartDateHourBox.Text}:{win.StartDateMinBox.Text}",
                                                                         win.TitleTextbox.Text,
                                                                         win.DescriptionRichTextBox.Selection.Text,
-                                                                        win.ReminderCheckBox.IsChecked.Value);
+                                                                        win.ReminderCheckBox.IsChecked.Value,
+                                                                        win);
             if (type == "mail")
-                win.SaveButton.Click += (sender, e) => SaveMailButton_Click(win.StartDayYearTextBox + win.StartDayMonthBox.SelectedItem.ToString() + win.StartDateDayBox.SelectedItem.ToString() + win.StartDateHourBox.SelectedItem.ToString() + win.StartDateMinBox.SelectedItem.ToString() + random.Next(0, 1000).ToString(),
-                                                                       $"{win.StartDateDayBox.SelectedItem.ToString()}-{win.StartDayMonthBox.SelectedItem.ToString()}-{win.StartDayYearTextBox.Text} {win.StartDateHourBox.SelectedItem.ToString()}:{win.StartDateMinBox.SelectedItem.ToString()}",
+                win.SaveButton.Click += (sender, e) => SaveMailButton_Click(win.StartDayYearTextBox.Text + win.StartDayMonthBox.Text + win.StartDateDayBox.Text + "-" + win.StartDateHourBox.Text + win.StartDateMinBox.Text + random.Next(0, 1000).ToString(),
+                                                                       $"{win.StartDateDayBox.Text}-{win.StartDayMonthBox.Text}-{win.StartDayYearTextBox.Text} {win.StartDateHourBox.Text}:{win.StartDateMinBox.Text}",
                                                                        win.TitleTextbox.Text,
                                                                        win.DescriptionRichTextBox.Selection.Text,
                                                                        win.ReminderCheckBox.IsChecked.Value,
                                                                        win.LocationTextbox.Text,
                                                                        win.PasswordTextbox.Password,
-                                                                       win.RecipentTextBox.Text);
+                                                                       win.RecipentTextBox.Text,
+                                                                       win);
             if (type == "event")
-                win.SaveButton.Click += (sender, e) => SaveEventButton_Click(win.StartDayYearTextBox + win.StartDayMonthBox.SelectedItem.ToString() + win.StartDateDayBox.SelectedItem.ToString() + win.StartDateHourBox.SelectedItem.ToString() + win.StartDateMinBox.SelectedItem.ToString() + random.Next(0, 1000).ToString(),
-                                                                       $"{win.StartDateDayBox.SelectedItem.ToString()}-{win.StartDayMonthBox.SelectedItem.ToString()}-{win.StartDayYearTextBox.Text} {win.StartDateHourBox.SelectedItem.ToString()}:{win.StartDateMinBox.SelectedItem.ToString()}",
+                win.SaveButton.Click += (sender, e) => SaveEventButton_Click(win.StartDayYearTextBox.Text + win.StartDayMonthBox.Text + win.StartDateDayBox.Text + "-" + win.StartDateHourBox.Text + win.StartDateMinBox.Text + random.Next(0, 1000).ToString(),
+                                                                       $"{win.StartDateDayBox.Text}-{win.StartDayMonthBox.Text}-{win.StartDayYearTextBox.Text} {win.StartDateHourBox.Text}:{win.StartDateMinBox.Text}",
                                                                        win.TitleTextbox.Text,
                                                                        win.DescriptionRichTextBox.Selection.Text,
                                                                        win.ReminderCheckBox.IsChecked.Value,
-                                                                       $"{win.EndDateDayBox.SelectedItem.ToString()}-{win.EndDateMonthBox.SelectedItem.ToString()}-{win.EndDateYearTextBox.Text} {win.EndDateHourBox.SelectedItem.ToString()}:{win.EndDateMinBox.SelectedItem.ToString()}",
-                                                                       win.LocationTextbox.Text);
+                                                                       $"{win.EndDateDayBox.Text}-{win.EndDateMonthBox.Text}-{win.EndDateYearTextBox.Text} {win.EndDateHourBox.Text}:{win.EndDateMinBox.Text}",
+                                                                       win.LocationTextbox.Text,
+                                                                       win);
 
             win.Show();
         }
@@ -166,20 +170,30 @@ namespace MyCalendar_WPF_App
         }
 
         //send window values through event
-        private void SaveNoteButton_Click(string name, string date, string title, string description, bool reminder)
+        private void SaveNoteButton_Click(string name, string date, string title, string description, bool reminder, AddWindow win)
         {
             Note note = new Note(name, date, title, description, reminder);
             _control.SaveNote(note);
+            mWindow.RefreshCalendar();
+            win.Close();
         }
-        private void SaveMailButton_Click(string name, string date, string title, string description, bool reminder, string login, string password, string recipent)
+        private void SaveMailButton_Click(string name, string date, string title, string description, bool reminder, string login, string password, string recipent, AddWindow win)
         {
             CustomMail mail = new CustomMail(name, date, title, description, reminder, login, password, recipent);
             _control.SaveMail(mail);
+            mWindow.RefreshCalendar();
+            win.Close();
         }
-        private void SaveEventButton_Click(string name, string date, string title, string description, bool reminder, string endDate, string location)
+        private void SaveEventButton_Click(string name, string date, string title, string description, bool reminder, string endDate, string location, AddWindow win)
         {
             MyEvent mevent = new MyEvent(name, date, title, description, reminder, endDate, location);
+
+            DateTime startDT = DateTime.ParseExact(date, "dd-MMMM-yyyy h:m", System.Globalization.CultureInfo.InvariantCulture);
+            DateTime DTime = DateTime.Parse(startDT.Year.ToString() + "-" + startDT.Month.ToString("d2") + "-" + startDT.Day.ToString("d2") + "T" + startDT.Hour.ToString("d2") + ":" + startDT.Minute.ToString("d2") + ":00-07:00");
+            MessageBox.Show(DTime.ToString());
             _control.SaveEvent(mevent);
+            mWindow.RefreshCalendar();
+            win.Close();
         }
 
         public void CreateSettingsWindow()
@@ -221,11 +235,18 @@ namespace MyCalendar_WPF_App
             sw.StartDateLabel.Content = note.GetValue("date");
             sw.DescriptionLabel.Content = note.GetValue("description");
             sw.ReminderLabel.Content = note.GetReminder() ? "Reminder Active" : "Reminder Not Active";
+            sw.DeleteButton.Content = "Delete";
 
-            sw.DeleteButton.Click += (sender, e) => DeleteNoteButton_Click(note.GetValue("name"));
+            sw.DeleteButton.Click += (sender, e) => DeleteNoteButton_Click(note.GetValue("name"), sw);
+            sw.Show();
         }
 
-        private void DeleteNoteButton_Click(string name) { _control.DeleteNote(name); }
+        private void DeleteNoteButton_Click(string name, ShowWindow sw)
+        {
+            AppControl.DeleteNote(name);
+            mWindow.RefreshCalendar();
+            sw.Close();
+        }
 
         //show mail window
         public void ShowMailDisplay(CustomMail mail)
@@ -239,11 +260,18 @@ namespace MyCalendar_WPF_App
             sw.StartDateLabel.Content = mail.GetValue("date");
             sw.DescriptionLabel.Content = mail.GetValue("description");
             sw.ReminderLabel.Content = mail.GetSended() ? "Message Sended" : "Message Not Sended";
+            sw.DeleteButton.Content = "Delete";
 
-            sw.DeleteButton.Click += (sender, e) => DeleteMailButton_Click(mail.GetValue("name"));
+            sw.DeleteButton.Click += (sender, e) => DeleteMailButton_Click(mail.GetValue("name"), sw);
+            sw.Show();
         }
 
-        private void DeleteMailButton_Click(string name) { _control.DeleteMail(name); }
+        private void DeleteMailButton_Click(string name, ShowWindow sw)
+        {
+            AppControl.DeleteMail(name);
+            mWindow.RefreshCalendar();
+            sw.Close();
+        }
 
         //show event window
         public void ShowEventDisplay(MyEvent mevent)
@@ -257,8 +285,17 @@ namespace MyCalendar_WPF_App
             sw.EndDateLabel.Content = mevent.GetEventValues("endDate");
             sw.DescriptionLabel.Content = mevent.GetValue("description");
             sw.ReminderLabel.Content = mevent.GetReminder() ? "You set SMS Reminder" : "You didn't set SMS Reminder";
+            sw.DeleteButton.Content = "Delete";
 
-            sw.DeleteButton.Click += (sender, e) => DeleteEventButton_Click(mevent.GetValue("name"));
+            sw.DeleteButton.Click += (sender, e) => DeleteEventButton_Click(mevent.GetValue("name"), sw);
+            sw.Show();
+        }
+
+        private void DeleteEventButton_Click(string name, ShowWindow sw)
+        {
+            AppControl.DeleteEvent(name);
+            mWindow.RefreshCalendar();
+            sw.Close();
         }
 
         public void DisplaySettings()
@@ -266,8 +303,6 @@ namespace MyCalendar_WPF_App
             Settings settings = new Settings();
             settings.Show();
         }
-
-        private void DeleteEventButton_Click(string name) { _control.DeleteEvent(name); }
 
         //create list of buttons
         private List<Button> getButtons()
@@ -369,11 +404,12 @@ namespace MyCalendar_WPF_App
             _buttons[_b - 1].Content = Convert.ToString(c - 1);
             _buttons[_b - 1].Background = Brushes.White;
             _buttons[_b - 1].Foreground = Brushes.Black;
-            if (Note.CheckForRow("Notes", mWindow.YearCombobox.Text + mWindow.MonthCombobox.SelectedItem.ToString() + (c - 1)))
+            string month = GetMonths().FirstOrDefault(x => x.Value == mWindow.MonthCombobox.SelectedIndex + 1).Key;
+            if (Note.CheckForRow("Notes", mWindow.YearCombobox.Text + month + (c - 1) + "-"))
                 _buttons[_b - 1].Background = Brushes.Blue;
-            if (Note.CheckForRow("Mails", mWindow.YearCombobox.Text + mWindow.MonthCombobox.SelectedItem.ToString() + (c - 1)))
+            if (Note.CheckForRow("Mails", mWindow.YearCombobox.Text + month + (c - 1) + "-"))
                 _buttons[_b - 1].Background = Brushes.Blue;
-            if (Note.CheckForRow("Events", mWindow.YearCombobox.Text + mWindow.MonthCombobox.SelectedItem.ToString() + (c - 1)))
+            if (Note.CheckForRow("Events", mWindow.YearCombobox.Text + month + (c - 1) + "-"))
                 _buttons[_b - 1].Background = Brushes.Blue;
 
             for (int i = 1; i < days; i++)
@@ -381,16 +417,15 @@ namespace MyCalendar_WPF_App
                 _buttons[_b].Content = Convert.ToString(c);
                 _buttons[_b].Background = Brushes.White;
                 _buttons[_b].Foreground = Brushes.Black;
-                if (Note.CheckForRow("Notes", mWindow.YearCombobox.Text + mWindow.MonthCombobox.SelectedItem.ToString() + c))
+                if (Note.CheckForRow("Notes", mWindow.YearCombobox.Text + month + c + "-"))
                     _buttons[_b].Background = Brushes.Blue;
-                if (Note.CheckForRow("Mails", mWindow.YearCombobox.Text + mWindow.MonthCombobox.SelectedItem.ToString() + c))
+                if (Note.CheckForRow("Mails", mWindow.YearCombobox.Text + month + c + "-"))
                     _buttons[_b].Background = Brushes.Blue;
-                if (Note.CheckForRow("Events", mWindow.YearCombobox.Text + mWindow.MonthCombobox.SelectedItem.ToString() + c))
+                if (Note.CheckForRow("Events", mWindow.YearCombobox.Text + month + c + "-"))
                     _buttons[_b].Background = Brushes.Blue;
                 _b++;
                 c++;
             }
-            // win.SaveButton.Click += (sender, e) => SaveNoteButton_Click(win.StartDayYearTextBox + win.StartDayMonthBox.SelectedItem.ToString() + win.StartDateDayBox.SelectedItem.ToString()
         }
         //color sundays in red
         private void RedDays()
@@ -458,7 +493,7 @@ namespace MyCalendar_WPF_App
             }
         }
 
-        internal static void SetCurrentMonth(Dictionary<string, int> months, ComboBox cb)
+        public static void SetCurrentMonth(Dictionary<string, int> months, ComboBox cb)
         {
             if (months.ContainsKey(DateTime.Today.ToString("MMMM")))
                 cb.SelectedIndex = months.FirstOrDefault(x => x.Value == Int32.Parse(DateTime.Now.Month.ToString())).Value;
@@ -468,7 +503,7 @@ namespace MyCalendar_WPF_App
             }
         }
 
-        internal static void SetCurrentYear(ComboBox cb)
+        public static void SetCurrentYear(ComboBox cb)
         {
             cb.SelectedItem = DateTime.Today.Year;
         }
@@ -487,13 +522,20 @@ namespace MyCalendar_WPF_App
         //add function to buttons for display note view
         private void ButtonsViewMethod()
         {
-            foreach (Button button in _buttons)
-                button.Click += (sender, e) => calendarButton_Click(mWindow.YearCombobox.Text + mWindow.MonthCombobox.Text + button.Content.ToString());
+            foreach (Button button in _buttons) //check if exist in list haveEvent
+            {
+                string month = GetMonths().FirstOrDefault(x => x.Value == mWindow.MonthCombobox.SelectedIndex + 1).Key;
+                string name = mWindow.YearCombobox.Text + mWindow.MonthCombobox.Text + button.Content.ToString() + "-";
+                if (!(ButtonsWithEvent.Contains(name)))
+                    button.Click += (sender, e) => calendarButton_Click(name);
+            }
         }
 
         private void calendarButton_Click(string nameStart)
         {
             _control.DayEvent(nameStart);
+            //add button to list haveEvent
+            ButtonsWithEvent.Add(nameStart);
         }
 
 
@@ -557,6 +599,7 @@ namespace MyCalendar_WPF_App
                 Thread.Sleep(1000);
             }
         }
+
     }
 
     class LanguageSwitch
