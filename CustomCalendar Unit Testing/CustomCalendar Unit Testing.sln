@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCalendarUnitTesting", "MyCalendarUnitTesting\MyCalendarUnitTesting.csproj", "{4E84E588-FD08-41F1-AE88-ADE4500B5374}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCalendar Unit Testing", "CustomCalendar Unit Testing\CustomCalendar Unit Testing.csproj", "{5F1DE874-44DB-4A27-95DF-CA5BF19DE94C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4E84E588-FD08-41F1-AE88-ADE4500B5374}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E84E588-FD08-41F1-AE88-ADE4500B5374}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E84E588-FD08-41F1-AE88-ADE4500B5374}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E84E588-FD08-41F1-AE88-ADE4500B5374}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F1DE874-44DB-4A27-95DF-CA5BF19DE94C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F1DE874-44DB-4A27-95DF-CA5BF19DE94C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F1DE874-44DB-4A27-95DF-CA5BF19DE94C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F1DE874-44DB-4A27-95DF-CA5BF19DE94C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {69C87A2D-0280-49B0-AE77-021C39CB6835}
+		SolutionGuid = {B28F0F3D-6C01-40B6-884F-37A485E4DD6E}
 	EndGlobalSection
 EndGlobal
