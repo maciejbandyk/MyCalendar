@@ -546,7 +546,7 @@ namespace MyCalendar_WPF_App
             {
                 ComboBoxItem cbi = new ComboBoxItem();
                 cbi.Name = "hour" + i;
-                cbi.Content = Convert.ToString(i);
+                cbi.Content = i.ToString("d2");
                 cb.Items.Add(cbi);
             }
         }
@@ -557,7 +557,7 @@ namespace MyCalendar_WPF_App
             {
                 ComboBoxItem cbi = new ComboBoxItem();
                 cbi.Name = "min" + i;
-                cbi.Content = Convert.ToString(i);
+                cbi.Content = i.ToString("d2");
                 cb.Items.Add(cbi);
             }
         }
@@ -570,7 +570,7 @@ namespace MyCalendar_WPF_App
             {
                 ComboBoxItem cbi = new ComboBoxItem();
                 cbi.Name = "day" + i;
-                cbi.Content = Convert.ToString(i);
+                cbi.Content = i.ToString("d2");
                 cb.Items.Add(cbi);
             }
         }
