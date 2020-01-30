@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -43,7 +44,7 @@ namespace MyCalendar_WPF_App
             AppView.SetCurrentMonth(_view.GetMonths(), MonthCombobox);
 
 
-
+            Toggle.Click += (o, e) => SetLanguage();
             MonthCombobox.SelectionChanged += (o, e) => RefreshCalendar();
             YearCombobox.SelectionChanged += (o, e) => RefreshCalendar();
         }
@@ -57,6 +58,21 @@ namespace MyCalendar_WPF_App
             string year = YearCombobox.SelectionBoxItem.ToString();
 
             _view.LoadCalendar(year, month);
+        }
+
+        private void SetLanguage()
+        {
+            if ((bool)Toggle.IsChecked)
+            {
+                _view.lang = new LanguageSwitch(true);
+                _view.Start();
+            }
+            else
+            {
+                _view.lang = new LanguageSwitch(false);
+                _view.Start();
+                RefreshCalendar();
+            }
         }
 
         private void AddNoteButton_Click(object sender, RoutedEventArgs e)
