@@ -15,6 +15,7 @@ namespace MyCalendar_WPF_App
         //define variables
         mainWindow mWindow = Application.Current.MainWindow as mainWindow;
         private AppControl _control;
+        public LanguageSwitch lang = new LanguageSwitch(false);
         private List<Button> _buttons;
         private Dictionary<string, int> _months;
         private (int, int) _currentDayCount;
@@ -27,6 +28,7 @@ namespace MyCalendar_WPF_App
             _buttons = getButtons();
             _b = 0;
             ResetButtons();
+            if (_months != null && _months.Count > 0) { _months.Clear(); }
             _months = GetMonths();
             GenerateMonths(_months, mWindow.MonthCombobox);
             GenerateYears(mWindow.YearCombobox);
@@ -63,25 +65,25 @@ namespace MyCalendar_WPF_App
             AddWindow win = new AddWindow();
             Random random = new Random();
 
-            win.TitleLabel.Content = "Title";
+            win.TitleLabel.Content = lang.Title;
             if (type == "mail")
             {
                 win.LocationLabel.Visibility = Visibility.Visible;
-                win.LocationLabel.Content = "Login";
+                win.LocationLabel.Content = lang.Login;
                 win.LocationTextbox.Text = SettingsSave.GetSetting("login");
                 win.LocationTextbox.Visibility = Visibility.Visible;
                 win.PasswordLabel.Visibility = Visibility.Visible;
-                win.PasswordLabel.Content = "Password";
+                win.PasswordLabel.Content = lang.Password;
                 win.PasswordTextbox.Password = SettingsSave.GetSetting("password");
                 win.PasswordTextbox.Visibility = Visibility.Visible;
                 win.RecipentLabel.Visibility = Visibility.Visible;
-                win.RecipentLabel.Content = "Recipent";
+                win.RecipentLabel.Content = lang.Recipent;
                 win.RecipentTextBox.Visibility = Visibility.Visible;
             }
             else if (type == "event")
             {
                 win.LocationLabel.Visibility = Visibility.Visible;
-                win.LocationLabel.Content = "Location";
+                win.LocationLabel.Content = lang.Location;
                 win.LocationTextbox.Visibility = Visibility.Visible;
             }
             else
@@ -94,9 +96,9 @@ namespace MyCalendar_WPF_App
                 win.RecipentTextBox.Visibility = Visibility.Hidden;
             }
             if (type == "event")
-                win.StartDateLabel.Content = "Start Date";
+                win.StartDateLabel.Content = lang.StartDate;
             else
-                win.StartDateLabel.Content = "Date";
+                win.StartDateLabel.Content = lang.Date;
             CreateHours(win.StartDateHourBox);
             CreateMinutes(win.StartDateMinBox);
             GenerateMonths(_months, win.StartDayMonthBox);
@@ -106,7 +108,7 @@ namespace MyCalendar_WPF_App
             win.StartDateDayBox.SelectedIndex = DateTime.Now.Day - 1;
             if (type == "event")
             {
-                win.EndDateLabel.Content = "End Date";
+                win.EndDateLabel.Content = lang.EndDate;
                 CreateHours(win.EndDateHourBox);
                 CreateMinutes(win.EndDateMinBox);
                 GenerateMonths(_months, win.EndDateMonthBox);
@@ -125,12 +127,11 @@ namespace MyCalendar_WPF_App
                 win.EndDateMonthBox.Visibility = Visibility.Hidden;
                 win.EndDateYearTextBox.Visibility = Visibility.Hidden;
             }
-
-            win.DescriptionTextBlock.Text = "Description";
+            win.DescriptionTextBlock.Text = lang.Description;
             if (type == "mail")
                 win.ReminderCheckBox.Content = "Send now?";
             else
-                win.ReminderCheckBox.Content = "Reminder";
+                win.ReminderCheckBox.Content = lang.Reminder;
             win.StartDayMonthBox.SelectionChanged += (sender, e) => DayMonthBox_SelectionChanged(win.StartDateDayBox, Convert.ToInt32(win.StartDayYearTextBox.Text), win.StartDayMonthBox.SelectedIndex + 1);
 
             if (type == "note")
@@ -199,14 +200,14 @@ namespace MyCalendar_WPF_App
         {
             Settings set = new Settings();
 
-            set.MailTitle.Content = "Set Default Mail";
-            set.LoginLabel.Content = "Login";
-            set.PasswordLabel.Content = "Password";
-            set.EventTitle.Content = "Set Data for Event";
-            set.ProjectIdLabel.Content = "Project ID";
-            set.ClientIdLabel.Content = "Client ID";
-            set.ClientSecretLabel.Content = "Client Secret";
-            set.EventMailLabel.Content = "Google Account (e-mail)";
+            set.MailTitle.Content = lang.SetDefault;
+            set.LoginLabel.Content = lang.Login;
+            set.PasswordLabel.Content = lang.Password;
+            set.EventTitle.Content = lang.SetData;
+            set.ProjectIdLabel.Content = lang.ProjectId;
+            set.ClientIdLabel.Content = lang.ClientId;
+            set.ClientSecretLabel.Content = lang.ClientSecret;
+            set.EventMailLabel.Content = lang.GoogleAccount;
 
             set.SetDefaultMailBtn.Click += (sender, e) => SetDefaultMail_Click(set.LoginTextBox.Text, set.PasswordTextBox.Password);
             set.SetDefaultEventBtn.Click += (sender, e) => SetDefaultEvent_Click(set.ProjectIdTextBox.Text, set.ClientIdTextBox.Text, set.ClientSecretTextBox.Text, set.EventMailTextBox.Text);
@@ -318,22 +319,40 @@ namespace MyCalendar_WPF_App
         //get current month
         public Dictionary<string, int> GetMonths()
         {
+
             Dictionary<string, int> months = new Dictionary<string, int>();
-
-            months.Add("January", 1);
-            months.Add("February", 2);
-            months.Add("March", 3);
-            months.Add("April", 4);
-            months.Add("May", 5);
-            months.Add("June", 6);
-            months.Add("July", 7);
-            months.Add("August", 8);
-            months.Add("September", 9);
-            months.Add("October", 10);
-            months.Add("November", 11);
-            months.Add("December", 12);
-
+            if (!lang._switch)
+            {
+                months.Add("January", 1);
+                months.Add("February", 2);
+                months.Add("March", 3);
+                months.Add("April", 4);
+                months.Add("May", 5);
+                months.Add("June", 6);
+                months.Add("July", 7);
+                months.Add("August", 8);
+                months.Add("September", 9);
+                months.Add("October", 10);
+                months.Add("November", 11);
+                months.Add("December", 12);
+            }
+            else
+            {
+                months.Add("Styczeń", 1);
+                months.Add("Luty", 2);
+                months.Add("Marzec", 3);
+                months.Add("Kwiecień", 4);
+                months.Add("Maj", 5);
+                months.Add("Czerwiec", 6);
+                months.Add("Lipiec", 7);
+                months.Add("Sierpień", 8);
+                months.Add("Wrzesień", 9);
+                months.Add("Październik", 10);
+                months.Add("Listopad", 11);
+                months.Add("Grudzień", 12);
+            }
             return months;
+
         }
 
 
@@ -456,6 +475,7 @@ namespace MyCalendar_WPF_App
         //generate months for comboBox
         private void GenerateMonths(Dictionary<string, int> months, ComboBox cb)
         {
+            cb.Items.Clear();
             for (int i = 1; i <= 12; i++)
             {
                 ComboBoxItem cbi = new ComboBoxItem();
@@ -477,6 +497,10 @@ namespace MyCalendar_WPF_App
         {
             if (months.ContainsKey(DateTime.Today.ToString("MMMM")))
                 cb.SelectedIndex = months.FirstOrDefault(x => x.Value == Int32.Parse(DateTime.Now.Month.ToString())).Value;
+            else
+            {
+                cb.SelectedIndex = 0;
+            }
         }
 
         public static void SetCurrentYear(ComboBox cb)
@@ -487,13 +511,13 @@ namespace MyCalendar_WPF_App
         //generate label names over buttons
         private void GenerateDayNames()
         {
-            mWindow.DayLabel1.Content = "Mon";
-            mWindow.DayLabel2.Content = "Tue";
-            mWindow.DayLabel3.Content = "Wed";
-            mWindow.DayLabel4.Content = "Thu";
-            mWindow.DayLabel5.Content = "Fri";
-            mWindow.DayLabel6.Content = "Sat";
-            mWindow.DayLabel7.Content = "Sun";
+            mWindow.DayLabel1.Content = lang.Monday;
+            mWindow.DayLabel2.Content = lang.Tuesday;
+            mWindow.DayLabel3.Content = lang.Wednesday;
+            mWindow.DayLabel4.Content = lang.Thursday;
+            mWindow.DayLabel5.Content = lang.Friday;
+            mWindow.DayLabel6.Content = lang.Saturday;
+            mWindow.DayLabel7.Content = lang.Sunday;
         }
         //add function to buttons for display note view
         private void ButtonsViewMethod()
@@ -576,5 +600,105 @@ namespace MyCalendar_WPF_App
             }
         }
 
+    }
+
+    class LanguageSwitch
+    {
+        public bool _switch = false;
+
+        public LanguageSwitch(bool Switch)
+        {
+            _switch = Switch;
+            if (!Switch)
+            {
+                Title = "Title";
+                Login = "Login";
+                Password = "Password";
+                Recipent = "Recipent";
+                Location = "Location";
+                StartDate = "Start Date";
+                Date = "Date";
+                EndDate = "End Date";
+                Description = "Description";
+                SendNow = "Send Now";
+                Reminder = "Reminder";
+                SetDefault = "Set Default";
+                SetData = "Set Data";
+                ProjectId = "Project ID";
+                ClientId = "Client ID";
+                ClientSecret = "Client Secret";
+                GoogleAccount = "Google account";
+                Monday = "Mon";
+                Tuesday = "Tue";
+                Wednesday = "Wed";
+                Thursday = "Thu";
+                Friday = "Fri";
+                Saturday = "Sat";
+                Sunday = "Sun";
+                Hour = "Hour";
+                Minute = "Min";
+                Day = "Day";
+
+            }
+            else
+            {
+                Title = "Tytuł";
+                Login = "Login";
+                Password = "Hasło";
+                Recipent = "Odbiorca";
+                Location = "Lokalizacja";
+                StartDate = "Data początkowa";
+                Date = "Data";
+                EndDate = "Data końcowa";
+                Description = "Opis";
+                SendNow = "Wyślij teraz";
+                Reminder = "Przypomnienie";
+                SetDefault = "Ustaw domyślne";
+                SetData = "Ustaw dane";
+                ProjectId = "ID Projektu";
+                ClientId = "ID Klienta";
+                ClientSecret = "Klient Sekret";
+                GoogleAccount = "Konto Google";
+                Monday = "Pon";
+                Tuesday = "Wt";
+                Wednesday = "Śr";
+                Thursday = "Czw";
+                Friday = "Pt";
+                Saturday = "Sob";
+                Sunday = "Nd";
+                Hour = "Godzina";
+                Minute = "Minuta";
+                Day = "Dzień";
+            }
+
+        }
+
+        public string Title { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public string Recipent { get; set; }
+        public string Location { get; set; }
+        public string StartDate { get; set; }
+        public string Date { get; set; }
+        public string EndDate { get; set; }
+        public string Description { get; set; }
+        public string SendNow { get; set; }
+        public string Reminder { get; set; }
+        public string SetDefault { get; set; }
+        public string SetData { get; set; }
+        public string ProjectId { get; set; }
+        public string ClientId { get; set; }
+        public string ClientSecret { get; set; }
+        public string GoogleAccount { get; set; }
+        public string Monday { get; set; }
+        public string Tuesday { get; set; }
+        public string Wednesday { get; set; }
+        public string Thursday { get; set; }
+        public string Friday { get; set; }
+        public string Saturday { get; set; }
+        public string Sunday { get; set; }
+        public string Hour { get; set; }
+        public string Minute { get; set; }
+        public string Day { get; set; }
     }
 }
