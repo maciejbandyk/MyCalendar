@@ -66,12 +66,37 @@ namespace MyCalendar_WPF_App
             {
                 _view.lang = new LanguageSwitch(true);
                 _view.Start();
+                RenameButtons(_view.lang._switch);
+                RefreshCalendar();
             }
             else
             {
                 _view.lang = new LanguageSwitch(false);
                 _view.Start();
+                RenameButtons(_view.lang._switch);
                 RefreshCalendar();
+            }
+        }
+
+        public void RenameButtons(bool _switch)
+        {
+            if (_switch)
+            {
+                AddNoteButton.Content = "Dodaj notkę";
+                AddMailButton.Content = "Dodaj mail";
+                AddEventButton.Content = "Dodaj zdarzenie";
+                SettingsButton.Content = "Ustawienia";
+                PrevButton.Content = "Poprzedni";
+                NextButton.Content = "Następny";
+            }
+            else
+            {
+                AddNoteButton.Content = "Add Note";
+                AddMailButton.Content = "Add Email";
+                AddEventButton.Content = "Add Event";
+                SettingsButton.Content = "Setings";
+                PrevButton.Content = "Previous";
+                NextButton.Content = "Next";
             }
         }
 
