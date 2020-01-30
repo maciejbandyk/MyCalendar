@@ -7,8 +7,6 @@ using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Reflection;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
@@ -31,7 +29,7 @@ namespace CustomCalendar
         protected string _description;
         protected bool _reminder;
 
-        protected string _database = @"URI=file:"+Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\CalendarDB.db";
+        protected string _database = @"URI=file:" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\CalendarDB.db";
         protected static string _sdatabase = @"URI=file:" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\CalendarDB.db";
 
 
@@ -119,7 +117,7 @@ namespace CustomCalendar
         //create table if exists
         protected void CreateTable()
         {
-            if(CheckForTable("Notes") == false)
+            if (CheckForTable("Notes") == false)
             {
                 using var con = new SQLiteConnection(_database);
                 con.Open();
@@ -136,34 +134,34 @@ namespace CustomCalendar
         public string GetValue(string value) =>
          value.ToLower() switch
          {
-             "id"           => _id,
-             "name"         => _name,
-             "date"         => _date,
-             "title"        => _title,
-             "description"  => _description,
-             _              => "Invalid Input",
+             "id" => _id,
+             "name" => _name,
+             "date" => _date,
+             "title" => _title,
+             "description" => _description,
+             _ => "Invalid Input",
          };
 
         //get value of the reminder
         /// <include file='CustomCalendar' path='docs/members[@name="Note"]/GetReminder/*'>
         public bool GetReminder() => _reminder;
-        
+
         //Save note object to database
-        public void Save() 
+        public void Save()
         {
             string reminder = _reminder == true ? "1" : "0";
 
             using var con = new SQLiteConnection(_database);
             con.Open();
             using var cmd = new SQLiteCommand(con);
-            
-            cmd.CommandText = "INSERT INTO Notes(Name, Date, Title, Description, Reminder) VALUES('"+_name+"', '"+_date+"', '"+_title+"', '"+_description+"', '"+reminder+"');";
+
+            cmd.CommandText = "INSERT INTO Notes(Name, Date, Title, Description, Reminder) VALUES('" + _name + "', '" + _date + "', '" + _title + "', '" + _description + "', '" + reminder + "');";
             cmd.ExecuteNonQuery();
         }
 
         //delete note from database by object
         /// <include file='CustomCalendar' path='docs/members[@name="Note"]/Delete/*'>
-        public void Delete() 
+        public void Delete()
         {
             using var con = new SQLiteConnection(_database);
             con.Open();
@@ -175,7 +173,7 @@ namespace CustomCalendar
 
         //delete note from database by name
         /// <include file='CustomCalendar' path='docs/members[@name="Note"]/StaticDelete/*'>
-        public static void StaticDelete(string name) 
+        public static void StaticDelete(string name)
         {
             using var con = new SQLiteConnection(_sdatabase);
             con.Open();
@@ -191,8 +189,8 @@ namespace CustomCalendar
         protected static List<string> SearchDataBase(string type, string nameStart)
         {
             List<string> tempList = new List<string>();
-            
-            if(CheckForTable(type))
+
+            if (CheckForTable(type))
             {
                 string query = $"Select Name FROM {type} WHERE Name LIKE '{nameStart}%';";
 
@@ -201,7 +199,7 @@ namespace CustomCalendar
                 foreach (DataRow row in table.Rows)
                     tempList.Add(row.ItemArray[0].ToString());
             }
-                return tempList;
+            return tempList;
 
         }
 
@@ -222,7 +220,7 @@ namespace CustomCalendar
             }
         }
 
-        protected static string LoadConnectionString(string id="Default")
+        protected static string LoadConnectionString(string id = "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
         }
@@ -238,10 +236,6 @@ namespace CustomCalendar
         private string _password;
         private string _recipent;
         private bool _sended;
-
-        //debugger key
-        private string _key = "poiuytrewq128954";
-        private static string _skey = "poiuytrewq128954";
 
         //default constructor
         /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="CustomMail"]/CustomMailConstructor/*'/>
@@ -275,7 +269,7 @@ namespace CustomCalendar
                 _description = rdr.GetString(4);
                 _sended = rdr.GetString(5) == "1" ? true : false;
                 _login = rdr.GetString(6);
-                _password = Encryptor.Decrypt(_key, rdr.GetString(7));
+                _password = rdr.GetString(7);
                 _recipent = rdr.GetString(8);
             }
             con.Close();
@@ -301,10 +295,10 @@ namespace CustomCalendar
         public string GetMailValues(string value) =>
             value.ToLower() switch
             {
-                "login"    => _login,
+                "login" => _login,
                 "password" => _password,
                 "recipent" => _recipent,
-                _          => "Invalid value",
+                _ => "Invalid value",
             };
 
         //get sender value
@@ -322,8 +316,8 @@ namespace CustomCalendar
             con.Open();
             using var cmd = new SQLiteCommand(con);
 
-            cmd.CommandText = "INSERT INTO Mails(Name, Date, Title, Description, Sended, Login, Password, Recipent) VALUES('" + _name + "', '" + _date + "', '" + _title 
-                + "', '" + _description + "', '" + sended + "', '"+_login+"', '"+Encryptor.Encrypt(_key, _password)+"', '"+_recipent+"');";
+            cmd.CommandText = "INSERT INTO Mails(Name, Date, Title, Description, Sended, Login, Password, Recipent) VALUES('" + _name + "', '" + _date + "', '" + _title
+                + "', '" + _description + "', '" + sended + "', '" + _login + "', '" + _password + "', '" + _recipent + "');";
             cmd.ExecuteNonQuery();
             con.Close();
         }
@@ -332,18 +326,18 @@ namespace CustomCalendar
         /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="CustomMail"]/SendMail/*'/>
         public string SendMail()
         {
-                try
-                {
-                    var message = new MailMessage(_login, _recipent);
-                    message.Subject = _title;
-                    message.Body = _description;
+            try
+            {
+                var message = new MailMessage(_login, _recipent);
+                message.Subject = _title;
+                message.Body = _description;
 
-                    using (SmtpClient mailer = new SmtpClient("smtp.gmail.com", 587))
-                    {
-                        mailer.Credentials = new NetworkCredential(_login, _password);
-                        mailer.EnableSsl = true;
-                        mailer.Send(message);
-                    }
+                using (SmtpClient mailer = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    mailer.Credentials = new NetworkCredential(_login, _password);
+                    mailer.EnableSsl = true;
+                    mailer.Send(message);
+                }
 
                 //update sended to true
                 using var con = new SQLiteConnection(_database);
@@ -357,10 +351,10 @@ namespace CustomCalendar
                 return $"Sended message to {_recipent}";
             }
             catch (Exception)
-                {
+            {
                 return "Mail couldn't be send";
-                }
-           
+            }
+
         }
 
         //send mail directly from database
@@ -388,11 +382,11 @@ namespace CustomCalendar
                     subject = rdr.GetString(3);
                     body = rdr.GetString(4);
                     mail = rdr.GetString(6);
-                    password = Encryptor.Decrypt(_skey, rdr.GetString(7));
+                    password = rdr.GetString(7);
                     recipent = rdr.GetString(8);
                 }
 
-                var message = new MailMessage(mail,recipent);
+                var message = new MailMessage(mail, recipent);
                 message.Subject = subject;
                 message.Body = body;
 
@@ -500,9 +494,9 @@ namespace CustomCalendar
         public string GetEventValues(string value) =>
             value.ToLower() switch
             {
-                "endDate"  => _endDate,
+                "endDate" => _endDate,
                 "location" => _location,
-                _          => "Invalid value",
+                _ => "Invalid value",
             };
 
         //create table if no exists
@@ -540,88 +534,92 @@ namespace CustomCalendar
         /// <include file='CustomCalendar.docs.xml' path='docs/members[@name ="MyEvent"]/SendEvent/*'/>
         public void SendEvent()
         {
-                string mail = SettingsSave.GetSetting("account");
+            string mail = SettingsSave.GetSetting("account");
 
-                string[] Scopes = { CalendarService.Scope.Calendar };
-                string ApplicationName = "MyCalendar Google Calendar API";
+            string[] Scopes = { CalendarService.Scope.Calendar };
+            string ApplicationName = "MyCalendar Google Calendar API";
 
 
-                UserCredential credential;
+            UserCredential credential;
 
-                using (var stream =
-                    new FileStream("credentials.json", FileMode.Open, FileAccess.Read))
+            using (var stream =
+                new FileStream("credentials.json", FileMode.Open, FileAccess.Read))
+            {
+                // The file token.json stores the user's access and refresh tokens, and is created
+                // automatically when the authorization flow completes for the first time.
+                string credPath = "token.json";
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets,
+                    Scopes,
+                    "user",
+                    CancellationToken.None,
+                    new FileDataStore(credPath, true)).Result;
+            }
+
+            // Create Google Calendar API service.
+            var service = new CalendarService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName,
+            });
+
+
+            int RemindTime = 0;
+
+            ChangeReminder();
+
+            void ChangeReminder()
+            {
+                if (_reminder)
+                    RemindTime = 10;
+            }
+
+            DateTime startDT = DateTime.ParseExact(_startDate, "dd-MMMM-yyyy hh:mm", System.Globalization.CultureInfo.InvariantCulture);
+            DateTime STime = DateTime.Parse(startDT.Year.ToString() + "-" + startDT.Month.ToString("d2") + "-" + startDT.Day.ToString("d2") + "T" + startDT.Hour.ToString("d2") + ":" + startDT.Minute.ToString("d2") + ":00-07:00");
+
+            DateTime endDT = DateTime.ParseExact(_endDate, "dd-MMMM-yyyy hh:mm", System.Globalization.CultureInfo.InvariantCulture);
+            DateTime ETime = DateTime.Parse(endDT.Year.ToString() + "-" + endDT.Month.ToString("d2") + "-" + endDT.Day.ToString("d2") + "T" + endDT.Hour.ToString("d2") + ":" + endDT.Minute.ToString("d2") + ":00-07:00");
+
+
+            //create Event to send for calendar API
+            Event newEvent = new Event()
+            {
+                Summary = _title,
+                Location = _location,
+                Description = _description,
+
+                Start = new EventDateTime()
                 {
-                    // The file token.json stores the user's access and refresh tokens, and is created
-                    // automatically when the authorization flow completes for the first time.
-                    string credPath = "token.json";
-                    credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                        GoogleClientSecrets.Load(stream).Secrets,
-                        Scopes,
-                        "user",
-                        CancellationToken.None,
-                        new FileDataStore(credPath, true)).Result;
-                }
-
-                // Create Google Calendar API service.
-                var service = new CalendarService(new BaseClientService.Initializer()
+                    DateTime = STime,
+                    TimeZone = "Europe/Warsaw",
+                },
+                End = new EventDateTime()
                 {
-                    HttpClientInitializer = credential,
-                    ApplicationName = ApplicationName,
-                });
+                    DateTime = ETime,
+                    TimeZone = "Europe/Warsaw",
+                },
 
-
-                int RemindTime = 0;
-
-                ChangeReminder();
-
-                void ChangeReminder()
-                {
-                    if (_reminder)
-                        RemindTime = 10;
-                }
-
-                char[] sDate = _startDate.ToCharArray();  //false data, redefine string with data to google format
-                char[] eDate = _endDate.ToCharArray();
-
-                //create Event to send for calendar API
-                Event newEvent = new Event()
-                {
-                    Summary = _title,
-                    Location = _location,
-                    Description = _description,
-
-                    Start = new EventDateTime()
-                    {
-                        DateTime = DateTime.Parse(sDate[6]+sDate[7]+sDate[8]+sDate[9] + "-" + sDate[3]+sDate[4] + "-" + sDate[0]+sDate[1] + "T" + sDate[11]+sDate[12] + ":" + sDate[14]+sDate[15] + ":00-07:00"),
-                        TimeZone = "Europe/Warsaw",
-                    },
-                    End = new EventDateTime()
-                    {
-                        DateTime = DateTime.Parse(eDate[6] + eDate[7] + eDate[8] + eDate[9] + "-" + eDate[3] + eDate[4] + "-" + eDate[0] + eDate[1] + "T" + eDate[11] + eDate[12] + ":" + eDate[14] + eDate[15] + ":00-07:00"),
-                        TimeZone = "Europe/Warsaw",
-                    },
-
-                    Attendees = new EventAttendee[] {
+                Attendees = new EventAttendee[] {
         new EventAttendee() {
             Organizer = true,
             Email = mail,
         ResponseStatus = "accepted" }, // automaticly confirmed
                 },
 
-                    Reminders = new Event.RemindersData()
-                    {
-                        UseDefault = false,
-                        Overrides = new EventReminder[] {
+                Reminders = new Event.RemindersData()
+                {
+                    UseDefault = false,
+                    Overrides = new EventReminder[] {
             new EventReminder() { Method = "sms", Minutes = RemindTime },
         }
-                    }
+                }
 
-                };
-                //Add event to calendar by google calendar API
-                String calendarId = "primary";
-                EventsResource.InsertRequest request = service.Events.Insert(newEvent, calendarId);
-                Event createdEvent = request.Execute();
-            
+            };
+            //Add event to calendar by google calendar API
+            String calendarId = "primary";
+            EventsResource.InsertRequest request = service.Events.Insert(newEvent, calendarId);
+            Event createdEvent = request.Execute();
+
 
         }
         //Create credentiatls.json file
@@ -682,68 +680,6 @@ namespace CustomCalendar
             configuration.Save();
 
             ConfigurationManager.RefreshSection("appSettings");
-        }
-    }
-    
-    public class Encryptor
-    {
-        //method for encrypt password
-        public static string Encrypt(string key, string text)
-        {
-            //create arrays for holding bytes
-            byte[] iv = new byte[16];
-            byte[] array;
-
-            using (Aes aes = Aes.Create())
-            {
-                aes.Key = Encoding.UTF8.GetBytes(key);  //convert key to bytes
-                aes.IV = iv;
-                //transformation interface gets key and iv values
-                ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
-
-                using (MemoryStream memoryStream = new MemoryStream()) //write stream to memory
-                {
-                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write)) //connect stream
-                    {
-                        using (StreamWriter streamWriter = new StreamWriter(cryptoStream)) //saves stream
-                        {
-                            streamWriter.Write(text);
-                        }
-                        //put bytes into array
-                        array = memoryStream.ToArray();
-                    }
-                }
-
-            }
-            //convert array into string
-            return Convert.ToBase64String(array);
-        }
-        //method for decrypt password
-        public static string Decrypt(string key, string text)
-        {
-            ///create array for bytes
-            byte[] iv = new byte[16];
-            byte[] buffer = Convert.FromBase64String(text);
-
-            using (Aes aes = Aes.Create())
-            {
-                aes.Key = Encoding.UTF8.GetBytes(key); //convert bytes to stream
-                aes.IV = iv;
-
-                //transformation interface gets key and iv values
-                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
-
-                using (MemoryStream memoryStream = new MemoryStream(buffer)) //write stream to memory
-                {
-                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read)) //connect stream
-                    {
-                        using (StreamReader streamReader = new StreamReader(cryptoStream)) //reads stream
-                        {
-                            return streamReader.ReadToEnd(); //can't read string from decrypt method, so password isn't generated
-                        }
-                    }
-                }
-            }
         }
     }
 }

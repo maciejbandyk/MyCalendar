@@ -4,15 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using CustomCalendar;
 
 namespace MyCalendar_WPF_App
 {
     class AppControl
     {
-        private string _key = "poiuytrewq128954";
-
         public void SaveNote(Note note) { note.Save(); }
 
         public void SaveMail(CustomMail mail)
@@ -42,7 +39,7 @@ namespace MyCalendar_WPF_App
         public void SaveDefaultMail(string login, string password)
         {
             SettingsSave.SetSetting("login", login);
-            SettingsSave.SetSetting("password", Encryptor.Encrypt(_key, password));
+            SettingsSave.SetSetting("password", password);
         }
 
         //method to save def event
@@ -57,7 +54,7 @@ namespace MyCalendar_WPF_App
 
         public void CustomJson()
         {
-            if (SettingsSave.GetSetting("clientID").Length == 0 || SettingsSave.GetSetting("secret").Length == 0 || SettingsSave.GetSetting("projectID").Length == 0 || SettingsSave.GetSetting("account").Length == 0)
+            if (SettingsSave.GetSetting("clientID") == "clientID" || SettingsSave.GetSetting("secret") == "secret" || SettingsSave.GetSetting("projectID") == "projectID" || SettingsSave.GetSetting("account") == "account")
             {
                 MessageWindow mw = new MessageWindow();
                 mw.TextLabel.Content = "Complete settings before!";

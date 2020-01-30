@@ -20,7 +20,6 @@ namespace MyCalendar_WPF_App
         private (int, int) _currentDayCount;
         private int _b; //start button index
         public static List<string> ButtonsWithEvent = new List<string>();
-        private string _key = "poiuytrewq128954";
 
         //main function to setup view
         public void Start()
@@ -73,7 +72,7 @@ namespace MyCalendar_WPF_App
                 win.LocationTextbox.Visibility = Visibility.Visible;
                 win.PasswordLabel.Visibility = Visibility.Visible;
                 win.PasswordLabel.Content = "Password";
-                win.PasswordTextbox.Password = SettingsSave.GetSetting(Encryptor.Decrypt(_key, "password"));
+                win.PasswordTextbox.Password = SettingsSave.GetSetting("password");
                 win.PasswordTextbox.Visibility = Visibility.Visible;
                 win.RecipentLabel.Visibility = Visibility.Visible;
                 win.RecipentLabel.Content = "Recipent";
@@ -126,6 +125,7 @@ namespace MyCalendar_WPF_App
                 win.EndDateMonthBox.Visibility = Visibility.Hidden;
                 win.EndDateYearTextBox.Visibility = Visibility.Hidden;
             }
+
             win.DescriptionTextBlock.Text = "Description";
             if (type == "mail")
                 win.ReminderCheckBox.Content = "Send now?";
@@ -186,6 +186,10 @@ namespace MyCalendar_WPF_App
         private void SaveEventButton_Click(string name, string date, string title, string description, bool reminder, string endDate, string location, AddWindow win)
         {
             MyEvent mevent = new MyEvent(name, date, title, description, reminder, endDate, location);
+
+            DateTime startDT = DateTime.ParseExact(date, "dd-MMMM-yyyy h:m", System.Globalization.CultureInfo.InvariantCulture);
+            DateTime DTime = DateTime.Parse(startDT.Year.ToString() + "-" + startDT.Month.ToString("d2") + "-" + startDT.Day.ToString("d2") + "T" + startDT.Hour.ToString("d2") + ":" + startDT.Minute.ToString("d2") + ":00-07:00");
+            MessageBox.Show(DTime.ToString());
             _control.SaveEvent(mevent);
             mWindow.RefreshCalendar();
             win.Close();
@@ -230,6 +234,7 @@ namespace MyCalendar_WPF_App
             sw.StartDateLabel.Content = note.GetValue("date");
             sw.DescriptionLabel.Content = note.GetValue("description");
             sw.ReminderLabel.Content = note.GetReminder() ? "Reminder Active" : "Reminder Not Active";
+            sw.DeleteButton.Content = "Delete";
 
             sw.DeleteButton.Click += (sender, e) => DeleteNoteButton_Click(note.GetValue("name"), sw);
             sw.Show();
@@ -254,6 +259,7 @@ namespace MyCalendar_WPF_App
             sw.StartDateLabel.Content = mail.GetValue("date");
             sw.DescriptionLabel.Content = mail.GetValue("description");
             sw.ReminderLabel.Content = mail.GetSended() ? "Message Sended" : "Message Not Sended";
+            sw.DeleteButton.Content = "Delete";
 
             sw.DeleteButton.Click += (sender, e) => DeleteMailButton_Click(mail.GetValue("name"), sw);
             sw.Show();
@@ -278,6 +284,7 @@ namespace MyCalendar_WPF_App
             sw.EndDateLabel.Content = mevent.GetEventValues("endDate");
             sw.DescriptionLabel.Content = mevent.GetValue("description");
             sw.ReminderLabel.Content = mevent.GetReminder() ? "You set SMS Reminder" : "You didn't set SMS Reminder";
+            sw.DeleteButton.Content = "Delete";
 
             sw.DeleteButton.Click += (sender, e) => DeleteEventButton_Click(mevent.GetValue("name"), sw);
             sw.Show();

@@ -306,5 +306,4 @@
     <param name="value">String with xml value to overwrite selected key in config file</param>
     </SetSettings>
   </members>
-  <members name="Encryptor"></members>
 </docs> 
