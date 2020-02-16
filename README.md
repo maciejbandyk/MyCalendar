@@ -37,6 +37,10 @@ Calendar main features:
 
 Starting point of development was to make Windows Calendar. After reading about all Apis to use We realize that they to hard to implement into other projects (problem with sending input to calendar) so we decided to write our own Calendar Api. After that we started to improve functionality by adding custom notes, than implement mail sending and finally Google Calendar Apis. Next main goal was to implement async controls to project for making app more intuitive. Finally, the project was ready to use after some code optimization. Hope you'll enjoy using it!
 
+# Contributors
+- [Maciej Bandyk](https://github.com/maciejbandyk)
+- [Tomasz Orpik](https://github.com/TomaszOrpik)
+
 # Others
 
 ### Report Bug and improves
@@ -51,3 +55,6 @@ Application was uploaded under GENERAL PUBLIC LICENSE for more information [chec
 ### Contact
 
 Feel free to [Contact me!](https://github.com/TomaszOrpik) or [Maciek!](https://github.com/maciejbandyk)
+
+### Preview
+![Image of MyCalendar app](https://i.gyazo.com/86a6d7bd33a497b9f6427c129b735373.png)
